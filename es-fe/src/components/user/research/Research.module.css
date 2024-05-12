@@ -1,0 +1,16 @@
+.borderRecmm {
+  border-radius: 4px;
+}
+
+.loadingResearch {
+  height: 100%;
+  width: 100%;
+}
+
+.containerResearch {
+  background-color: white;
+  width: 100%;
+  overflow: hidden;
+  height: calc(100vh - 90px);
+  overflow-y: scroll;
+}

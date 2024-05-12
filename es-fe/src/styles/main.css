@@ -1,0 +1,399 @@
+/* line height */
+.lh-64 {
+  line-height: 64px;
+}
+
+.lh-48 {
+  line-height: 48px;
+}
+
+/* color */
+.cl-green {
+  color: #9caf88;
+}
+/* padding */
+
+.p-16 {
+  padding: 16px;
+}
+
+.p-32 {
+  padding: 32px;
+}
+
+.pse-32 {
+  padding: 0 32px;
+}
+
+.pse-8 {
+  padding: 0 8px;
+}
+
+/* margin */
+.me-8 {
+  margin-right: 8px;
+}
+
+.me-16 {
+  margin-right: 16px;
+}
+
+.ms-16 {
+  margin-left: 16px;
+}
+
+.ms-8 {
+  margin-left: 8px;
+}
+.m-16 {
+  margin: 16px;
+}
+
+.textArea-no-border {
+  border: 0px;
+  width: 100%;
+  border-radius: 0px;
+  box-shadow: transparent 0px 0px !important;
+}
+
+.textArea-no-border:focus {
+  box-shadow: transparent 0px 0px;
+  border-radius: 0px;
+}
+
+.m-20 {
+  margin: 20px;
+}
+
+.m-32 {
+  margin: 32px;
+}
+
+.mt-8 {
+  margin-top: 8px;
+}
+
+.mse-32 {
+  margin: 0 32px;
+}
+
+.mse-8 {
+  margin: 0 8px;
+}
+
+.mtb-8 {
+  margin: 8px 0;
+}
+
+.mtb-16 {
+  margin: 16px 0;
+}
+.mt-48 {
+  margin-top: 48px;
+}
+
+.mt-32 {
+  margin-top: 32px;
+}
+
+.mt-16 {
+  margin-top: 16px;
+}
+
+.mb-32 {
+  margin-bottom: 32px;
+}
+
+.mb-8 {
+  margin-bottom: 8px;
+}
+
+.mse-4 {
+  margin: 0 4px;
+}
+
+.ms-16 {
+  margin-left: 16px;
+}
+
+.me-16 {
+  margin-right: 16px;
+}
+
+/* width */
+.w-100pc {
+  width: 100%;
+}
+
+/* emoij */
+.emoijs {
+  width: 320px;
+  height: 90%;
+  overflow-y: scroll;
+}
+
+.emoij {
+  height: 300px;
+  width: 320px;
+}
+
+.categoriesEmoij {
+  position: fixed;
+  width: inherit;
+  border-top: 1px solid #9caf88;
+  align-self: end;
+}
+
+/* href */
+.buttonGreen {
+  color: black;
+  font-weight: 500;
+  padding: 8px 24px;
+  border: 1px solid transparent;
+  margin: 0 8px;
+}
+
+.buttonGreen:hover {
+  color: black;
+  animation: fadeIn 0.3s ease-in-out;
+  border-radius: 8px;
+  background-color: rgba(127, 136, 119, 0.9);
+}
+
+.buttonDanger {
+  color: black;
+  font-weight: 500;
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.buttonDanger:hover {
+  color: white;
+  border-radius: 8px;
+  background-color: rgba(156, 81, 81, 0.9);
+}
+
+.buttonDanger:focus {
+  color: white;
+  border-radius: 8px;
+  background-color: rgba(156, 81, 81, 0.9);
+}
+
+.buttonDangerbg {
+  color: white;
+  font-weight: 500;
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  background-color: rgba(156, 81, 81, 0.9);
+}
+
+.buttonDangerbg:hover {
+  opacity: 0.7;
+}
+
+.buttonGreenActive {
+  color: white;
+  border-radius: 8px;
+  background-color: rgba(127, 136, 119, 0.9);
+  font-weight: 500;
+  padding: 8px 24px;
+}
+
+.buttonGreenActive:hover {
+  opacity: 0.7;
+}
+
+.buttonGrayTranset:hover {
+  cursor: pointer;
+  background-color: rgba(206, 218, 196, 0.9);
+  animation: show 0.3s ease-in-out;
+}
+
+.buttonGrayIcon {
+  padding: 8px;
+  border-radius: 4px;
+}
+.buttonGrayIcon:hover {
+  cursor: pointer;
+  background-color: rgba(214, 219, 210, 0.9);
+  animation: show 0.3s ease-in-out;
+}
+
+.buttonGrayIconFocus {
+  padding: 8px;
+  border-radius: 4px;
+  background-color: rgba(214, 219, 210, 0.9);
+}
+
+/* animation  */
+
+.hidenLift {
+  animation: hidenLift 1s ease forwards;
+}
+
+@keyframes hidenLift {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.show {
+  animation: show 0.5s ease forwards;
+}
+
+@keyframes show {
+  from {
+    background-color: transparent;
+  }
+  to {
+    background-color: rgba(206, 218, 196, 0.9);
+  }
+}
+
+@keyframes showButtonGrayGreen {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.buttonGreenActive:hover {
+  color: black;
+}
+
+/* border color */
+.bc-green {
+  border: 1px solid #cbd5c0;
+}
+
+.bce-green {
+  border-right: 1px solid #cbd5c0;
+}
+
+.bcb-green {
+  border-bottom: 1px solid #cbd5c0;
+}
+
+/* bordere radius  */
+.br-4 {
+  border-radius: 4px;
+}
+
+/* box shadow  */
+.bs-glittle {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.bs-input {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+/* button */
+.ant-btn {
+  background-color: #819171;
+  color: white;
+}
+
+.ant-btn:hover {
+  background-color: #9caf88 !important;
+  color: white !important;
+  border-color: #9caf88 !important;
+}
+
+/* input */
+.ant-input:focus {
+  border-color: #9caf88 !important;
+}
+
+.ant-input-outlined:focus {
+  border-color: #9caf88 !important;
+}
+.ant-input:hover {
+  border-color: #9caf88 !important;
+}
+
+.ant-input-outlined:hover {
+  border-color: #9caf88 !important;
+}
+
+.ant-input:focus-within {
+  border-color: #9caf88 !important;
+}
+
+.ant-input-outlined:focus-within {
+  border-color: #9caf88 !important;
+}
+
+/* flex align center */
+.fajc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.fjc {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
+.fac {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.mh-5ip {
+  max-height: 240px;
+  overflow-y: scroll;
+}
+
+.fct {
+  display: flex;
+}
+
+/* background color */
+.bg-gg {
+  background-color: #f2faec;
+}
+
+.bg-wh {
+  background-color: white;
+}
+
+/* width height */
+.h-100vh_m_48 {
+  min-height: calc(100vh - 50px);
+}
+
+@keyframes fadeIn {
+  from {
+    background-color: rgba(255, 254, 254, 0.9);
+  }
+  to {
+    background-color: rgba(217, 231, 203, 0.9);
+  }
+}
+
+/* Thanh cuộn dọc */
+::-webkit-scrollbar {
+  width: 4px; /* Kích thước thanh cuộn dọc */
+  background-color: rgba(217, 231, 203, 0.9); /* Màu nền của thanh cuộn */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(138, 150, 124, 0.9); /* Màu của nút thanh cuộn */
+}
+
+tr > th {
+  background-color: rgba(138, 150, 124, 0.9) !important;
+  color: white !important;
+}
