@@ -8,9 +8,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/*" index element={<UserRouter />}>
-            a
-          </Route>
+          <Route path="/*" index element={<UserRouter />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
