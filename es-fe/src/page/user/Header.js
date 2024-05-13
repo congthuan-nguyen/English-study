@@ -73,10 +73,12 @@ const Header = () => {
     },
   ];
   return (
-    <Row className={`${styles.headerUser} lh-48`} justify={"center"}>
+    <Row className={`${styles.headerUser} lh-64`} justify={"center"}>
       <Col span={16}>
         <Row>
-          <Col span={4}>LOGO</Col>
+          <Col span={4} className="fac">
+            LOGO
+          </Col>
           <Col span={20}>
             <Row justify={"end"}>
               <ul className={styles.header}>

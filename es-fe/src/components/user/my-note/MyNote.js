@@ -195,7 +195,7 @@ const MyNote = () => {
   }
 
   return (
-    <Row justify={"center"} className="bg-gg h-100vh_m_48">
+    <Row justify={"center"} className="bg-gg h-100vh_m_66">
       {modalContext}
       {contextHolder}
       <Modal
@@ -444,7 +444,7 @@ const MyNote = () => {
                         {tab?.data?.map((item, index) => {
                           return (
                             <List.Item
-                              className="buttonGrayTrangset"
+                              className="buttonGrayTranset"
                               onClick={() => {
                                 navigate("/my-note/list-store/data/id");
                               }}

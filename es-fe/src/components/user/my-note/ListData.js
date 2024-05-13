@@ -29,16 +29,21 @@ import {
   Send,
   Visibility,
 } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TextArea from "antd/es/input/TextArea";
 import axios from "axios";
 import EmojiPicker from "emoji-picker-react";
 const { Text } = Typography;
 const ListData = (props) => {
+  const [previewImage, setPreviewImage] = useState("");
+  const navigate = useNavigate();
+
   const [rows, setRows] = useState(2);
   const [expanded, setExpanded] = useState(false);
+  const [comment, setcomment] = useState("");
   const [owner, setOwner] = useState(true);
   const [emojiOpen, setEmojiOpen] = useState(false);
+  const [render, setRender] = useState("");
   const [attributes, setAttributes] = useState([
     {
       id: "1",
@@ -76,7 +81,7 @@ const ListData = (props) => {
       type: "7",
     },
   ]);
-  const dataList = [
+  const [dataList, setDataList] = useState([
     {
       title: "Account name",
       question: `Trong câu sau, từ ngữ "which" được sử dụng như thế nào: "The book which I borrowed from the library is very interesting."`,
@@ -97,9 +102,24 @@ const ListData = (props) => {
       title: "Account name",
       question: `so i like the title of the page"`,
     },
-  ];
+  ]);
 
-  useEffect(() => {}, []);
+  function upload(event) {
+    setPreviewImage(URL.createObjectURL(event.target.files[0]));
+  }
+
+  function addComment() {
+    var copy = [...dataList];
+    copy.push({
+      title: "Account name",
+      question: comment,
+    });
+    setDataList(copy);
+    setcomment("");
+    setRender(Math.random);
+  }
+
+  useEffect(() => {}, [render]);
   return (
     <Row justify={"center"} className="bcb-green ">
       <Col span={6} className={`${styles.wh}  bce-green`}>
@@ -260,9 +280,18 @@ const ListData = (props) => {
                       className="textArea-no-border"
                       placeholder={"Viết bình luận của bạn ..."}
                       allowClear
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          addComment();
+                        }
+                      }}
                       count={{
                         show: true,
                         max: 1000,
+                      }}
+                      value={comment}
+                      onChange={(e) => {
+                        setcomment(e.target.value);
                       }}
                       maxLength={1000}
                       autoSize={{ minRows: 4, maxRows: 8 }}
@@ -270,7 +299,16 @@ const ListData = (props) => {
                     <Row justify={"space-between"} className="mt-32">
                       <Space>
                         <Popover
-                          content={<EmojiPicker open={emojiOpen} />}
+                          content={
+                            <EmojiPicker
+                              onEmojiClick={(e) => {
+                                setcomment(
+                                  (prevComment) => prevComment + e.emoji
+                                );
+                              }}
+                              open={emojiOpen}
+                            />
+                          }
                           title="Title"
                           trigger="click"
                           open={emojiOpen}
@@ -283,14 +321,31 @@ const ListData = (props) => {
                             <EmojiEmotions />
                           </span>
                         </Popover>
-                        <span className="buttonGrayIcon fac">
+                        <div>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            name="image"
+                            id="file"
+                            onChange={(e) => {
+                              upload(e);
+                            }}
+                            style={{ display: "none" }}
+                          />
+                        </div>
+                        <label htmlFor="file" className="buttonGrayIcon fac">
                           <CameraAlt />
-                        </span>
+                        </label>
                         <span className="buttonGrayIcon fac">
                           <AddLink />
                         </span>
                       </Space>
-                      <span className="buttonGrayIcon fac">
+                      <span
+                        className="buttonGrayIcon fac"
+                        onClick={() => {
+                          addComment();
+                        }}
+                      >
                         <Send />
                       </span>
                     </Row>

@@ -50,7 +50,7 @@ const Research = () => {
         <Col span={12}>
           <Row justify={"end"}>
             <Col span={16}>
-              <Row justify={"center"} align={"middle"} className="h-100vh_m_48">
+              <Row justify={"center"} align={"middle"} className="h-100vh_m_66">
                 <Col span={20}>
                   <Title>
                     Tra cứu từ vựng <br /> sử dụng <br />

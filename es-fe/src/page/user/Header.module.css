@@ -6,6 +6,10 @@
   position: fixed;
   width: 100%;
 }
+
+.header {
+  margin: 0;
+}
 .header > li {
   list-style: none;
   display: inline-block;

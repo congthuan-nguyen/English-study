@@ -14,7 +14,7 @@ const UserRouter = () => {
       <Col span={24}>
         <Header />
       </Col>
-      <Col span={24} className="mt-48">
+      <Col span={24} className="mt-64">
         <Routes>
           <Route index element={<Research />} />
           <Route path="my-note">

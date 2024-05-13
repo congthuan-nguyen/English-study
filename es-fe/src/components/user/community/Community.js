@@ -27,7 +27,7 @@ const Community = () => {
     },
   ];
   return (
-    <Row justify={"center"} className="bg-gg h-100vh_m_48">
+    <Row justify={"center"} className="bg-gg h-100vh_m_66">
       <Col span={20}>
         <Row>
           <Col span={8}>

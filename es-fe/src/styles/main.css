@@ -88,6 +88,11 @@
 .mtb-16 {
   margin: 16px 0;
 }
+
+.mt-64 {
+  margin-top: 64px;
+}
+
 .mt-48 {
   margin-top: 48px;
 }
@@ -370,8 +375,8 @@
 }
 
 /* width height */
-.h-100vh_m_48 {
-  min-height: calc(100vh - 50px);
+.h-100vh_m_66 {
+  min-height: calc(100vh - 66px);
 }
 
 @keyframes fadeIn {

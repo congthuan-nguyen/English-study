@@ -16,7 +16,7 @@ const CreateList = () => {
 
   useEffect(() => {}, [previewImage]);
   return (
-    <Row justify={"center"} align={"middle"} className="bg-gg h-100vh_m_48">
+    <Row justify={"center"} align={"middle"} className="bg-gg h-100vh_m_66">
       <Col span={12} className="m-32 bg-wh p-32 bs-glittle bc-green">
         <Title level={4} className="fac">
           <NoteAddOutlined />
