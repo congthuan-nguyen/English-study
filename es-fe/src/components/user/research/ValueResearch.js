@@ -40,8 +40,8 @@ const ValueResearch = (props) => {
         }
         return acc;
       }, []);
-    console.log(play);
     setAudiosPlay(onlyPhonetics);
+    console.log(audiosPlay);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.render, render, index]);
   return (
@@ -76,7 +76,7 @@ const ValueResearch = (props) => {
                       <AudioPlayer
                         autoPlay
                         src={audiosPlay[audioPlay][play].audio}
-                        onPlay={(e) => console.log("onPlay")}
+                        onPlay={(e) => console.log(audioPlay, play)}
                       />
                     </>
                   ),

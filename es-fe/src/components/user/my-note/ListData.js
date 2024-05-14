@@ -8,6 +8,7 @@ import {
   Row,
   Space,
   Table,
+  Tooltip,
   Typography,
 } from "antd";
 import Title from "antd/es/typography/Title";
@@ -23,8 +24,16 @@ import {
 import {
   AddLink,
   CameraAlt,
+  ChatBubbleOutline,
   Edit,
   EmojiEmotions,
+  ExpandLess,
+  ExpandMore,
+  FlutterDash,
+  KeyboardDoubleArrowDown,
+  KeyboardDoubleArrowUp,
+  North,
+  PendingOutlined,
   Reply,
   Send,
   Visibility,
@@ -105,7 +114,9 @@ const ListData = (props) => {
   ]);
 
   function upload(event) {
-    setPreviewImage(URL.createObjectURL(event.target.files[0]));
+    if (event.target.files?.length > 0) {
+      setPreviewImage(URL.createObjectURL(event.target.files[0]));
+    }
   }
 
   function addComment() {
@@ -262,8 +273,10 @@ const ListData = (props) => {
             >
               <Table.Column title="#"></Table.Column>
               {attributes &&
-                attributes.map((item) => {
-                  return <Table.Column title={item.name}></Table.Column>;
+                attributes.map((item, index) => {
+                  return (
+                    <Table.Column key={index} title={item.name}></Table.Column>
+                  );
                 })}
             </Table>
           </Col>
@@ -291,12 +304,25 @@ const ListData = (props) => {
                       }}
                       value={comment}
                       onChange={(e) => {
-                        setcomment(e.target.value);
+                        setcomment(e.target.value.trim());
                       }}
                       maxLength={1000}
                       autoSize={{ minRows: 4, maxRows: 8 }}
                     />
                     <Row justify={"space-between"} className="mt-32">
+                      <Col span={24}>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          name="image"
+                          id="file"
+                          multiple={false}
+                          onChange={(e) => {
+                            upload(e);
+                          }}
+                          style={{ display: "none" }}
+                        />
+                      </Col>
                       <Space>
                         <Popover
                           content={
@@ -314,31 +340,29 @@ const ListData = (props) => {
                           open={emojiOpen}
                           onOpenChange={setEmojiOpen}
                         >
-                          <span
-                            className="buttonGrayIcon fac"
-                            onClick={() => setEmojiOpen(true)}
-                          >
-                            <EmojiEmotions />
-                          </span>
+                          <Tooltip placement="top" title="Bình luận bằng emoji">
+                            <span
+                              className="buttonGrayIcon fac"
+                              onClick={() => setEmojiOpen(true)}
+                            >
+                              <EmojiEmotions />
+                            </span>
+                          </Tooltip>
                         </Popover>
-                        <div>
-                          <input
-                            type="file"
-                            accept="image/*"
-                            name="image"
-                            id="file"
-                            onChange={(e) => {
-                              upload(e);
-                            }}
-                            style={{ display: "none" }}
-                          />
-                        </div>
-                        <label htmlFor="file" className="buttonGrayIcon fac">
-                          <CameraAlt />
-                        </label>
-                        <span className="buttonGrayIcon fac">
-                          <AddLink />
-                        </span>
+                        <Tooltip placement="top" title="Chèn ảnh vào bình luận">
+                          <label htmlFor="file" className="buttonGrayIcon fac">
+                            <CameraAlt />
+                          </label>
+                        </Tooltip>
+
+                        <Tooltip
+                          placement="top"
+                          title="Chèn nhãn dán vào bình luận"
+                        >
+                          <span className="buttonGrayIcon fac">
+                            <FlutterDash />
+                          </span>
+                        </Tooltip>
                       </Space>
                       <span
                         className="buttonGrayIcon fac"
@@ -360,7 +384,22 @@ const ListData = (props) => {
                         />
                       }
                       title={<span>{item.title}</span>}
-                      description={<div>{item.question}</div>}
+                      description={
+                        <div>
+                          {item.question}
+                          <div className="fac">
+                            <span className="fac me-8">
+                              <KeyboardDoubleArrowUp /> 123
+                            </span>
+                            <span className="fac me-8">
+                              <KeyboardDoubleArrowDown /> 0
+                            </span>
+                            <span className="fac me-8">
+                              <PendingOutlined /> 2
+                            </span>
+                          </div>
+                        </div>
+                      }
                     />
                   </List.Item>
                 )}

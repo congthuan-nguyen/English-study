@@ -213,7 +213,7 @@
 .buttonGrayTranset:hover {
   cursor: pointer;
   background-color: rgba(206, 218, 196, 0.9);
-  animation: show 0.3s ease-in-out;
+  animation: showButton 0.5s ease-in-out;
 }
 
 .buttonGrayIcon {
@@ -223,7 +223,7 @@
 .buttonGrayIcon:hover {
   cursor: pointer;
   background-color: rgba(214, 219, 210, 0.9);
-  animation: show 0.3s ease-in-out;
+  animation: showButton 0.5s ease-in-out;
 }
 
 .buttonGrayIconFocus {
@@ -251,12 +251,21 @@
   animation: show 0.5s ease forwards;
 }
 
-@keyframes show {
+@keyframes showButton {
   from {
     background-color: transparent;
   }
   to {
     background-color: rgba(206, 218, 196, 0.9);
+  }
+}
+
+@keyframes show {
+  from {
+    background-color: transparent;
+  }
+  to {
+    background-color: white;
   }
 }
 
