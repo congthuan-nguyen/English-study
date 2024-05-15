@@ -1,16 +1,4 @@
-import {
-  Avatar,
-  Button,
-  Col,
-  Divider,
-  List,
-  Popover,
-  Row,
-  Space,
-  Table,
-  Tooltip,
-  Typography,
-} from "antd";
+import { Avatar, Button, Col, List, Row, Table, Typography } from "antd";
 import Title from "antd/es/typography/Title";
 import React, { useEffect, useState } from "react";
 import styles from "./MyNote.module.css";
@@ -21,27 +9,9 @@ import {
   PlusCircleOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import {
-  AddLink,
-  CameraAlt,
-  ChatBubbleOutline,
-  Edit,
-  EmojiEmotions,
-  ExpandLess,
-  ExpandMore,
-  FlutterDash,
-  KeyboardDoubleArrowDown,
-  KeyboardDoubleArrowUp,
-  North,
-  PendingOutlined,
-  Reply,
-  Send,
-  Visibility,
-} from "@mui/icons-material";
+import { Edit, Reply, Visibility } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
-import TextArea from "antd/es/input/TextArea";
-import axios from "axios";
-import EmojiPicker from "emoji-picker-react";
+import Comment from "../comment/Comment";
 const { Text } = Typography;
 const ListData = (props) => {
   const [previewImage, setPreviewImage] = useState("");
@@ -49,9 +19,7 @@ const ListData = (props) => {
 
   const [rows, setRows] = useState(2);
   const [expanded, setExpanded] = useState(false);
-  const [comment, setcomment] = useState("");
   const [owner, setOwner] = useState(true);
-  const [emojiOpen, setEmojiOpen] = useState(false);
   const [render, setRender] = useState("");
   const [attributes, setAttributes] = useState([
     {
@@ -112,23 +80,6 @@ const ListData = (props) => {
       question: `so i like the title of the page"`,
     },
   ]);
-
-  function upload(event) {
-    if (event.target.files?.length > 0) {
-      setPreviewImage(URL.createObjectURL(event.target.files[0]));
-    }
-  }
-
-  function addComment() {
-    var copy = [...dataList];
-    copy.push({
-      title: "Account name",
-      question: comment,
-    });
-    setDataList(copy);
-    setcomment("");
-    setRender(Math.random);
-  }
 
   useEffect(() => {}, [render]);
   return (
@@ -281,130 +232,7 @@ const ListData = (props) => {
             </Table>
           </Col>
           <Col span={24}>
-            <div className="bc-green br-4 p-16 m-16">
-              <List
-                itemLayout="horizontal"
-                header={<Title level={5}>Bình luận (1226)</Title>}
-                dataSource={dataList}
-                pagination={{ pageSize: 5, align: "center" }}
-                footer={
-                  <div className="bs-input p-16">
-                    <TextArea
-                      className="textArea-no-border"
-                      placeholder={"Viết bình luận của bạn ..."}
-                      allowClear
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                          addComment();
-                        }
-                      }}
-                      count={{
-                        show: true,
-                        max: 1000,
-                      }}
-                      value={comment}
-                      onChange={(e) => {
-                        setcomment(e.target.value.trim());
-                      }}
-                      maxLength={1000}
-                      autoSize={{ minRows: 4, maxRows: 8 }}
-                    />
-                    <Row justify={"space-between"} className="mt-32">
-                      <Col span={24}>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          name="image"
-                          id="file"
-                          multiple={false}
-                          onChange={(e) => {
-                            upload(e);
-                          }}
-                          style={{ display: "none" }}
-                        />
-                      </Col>
-                      <Space>
-                        <Popover
-                          content={
-                            <EmojiPicker
-                              onEmojiClick={(e) => {
-                                setcomment(
-                                  (prevComment) => prevComment + e.emoji
-                                );
-                              }}
-                              open={emojiOpen}
-                            />
-                          }
-                          title="Title"
-                          trigger="click"
-                          open={emojiOpen}
-                          onOpenChange={setEmojiOpen}
-                        >
-                          <Tooltip placement="top" title="Bình luận bằng emoji">
-                            <span
-                              className="buttonGrayIcon fac"
-                              onClick={() => setEmojiOpen(true)}
-                            >
-                              <EmojiEmotions />
-                            </span>
-                          </Tooltip>
-                        </Popover>
-                        <Tooltip placement="top" title="Chèn ảnh vào bình luận">
-                          <label htmlFor="file" className="buttonGrayIcon fac">
-                            <CameraAlt />
-                          </label>
-                        </Tooltip>
-
-                        <Tooltip
-                          placement="top"
-                          title="Chèn nhãn dán vào bình luận"
-                        >
-                          <span className="buttonGrayIcon fac">
-                            <FlutterDash />
-                          </span>
-                        </Tooltip>
-                      </Space>
-                      <span
-                        className="buttonGrayIcon fac"
-                        onClick={() => {
-                          addComment();
-                        }}
-                      >
-                        <Send />
-                      </span>
-                    </Row>
-                  </div>
-                }
-                renderItem={(item, index) => (
-                  <List.Item className="buttonGrayTranset">
-                    <List.Item.Meta
-                      avatar={
-                        <Avatar
-                          src={`https://api.dicebear.com/7.x/miniavs/svg?seed=1`}
-                        />
-                      }
-                      title={<span>{item.title}</span>}
-                      description={
-                        <div>
-                          {item.question}
-                          <div className="fac">
-                            <span className="fac me-8">
-                              <KeyboardDoubleArrowUp /> 123
-                            </span>
-                            <span className="fac me-8">
-                              <KeyboardDoubleArrowDown /> 0
-                            </span>
-                            <span className="fac me-8">
-                              <PendingOutlined /> 2
-                            </span>
-                          </div>
-                        </div>
-                      }
-                    />
-                  </List.Item>
-                )}
-              />
-            </div>
+            <Comment />
           </Col>
         </Row>
       </Col>

@@ -365,6 +365,10 @@
   height: 100%;
 }
 
+.h100 {
+  height: 100%;
+}
+
 .mh-5ip {
   max-height: 240px;
   overflow-y: scroll;
