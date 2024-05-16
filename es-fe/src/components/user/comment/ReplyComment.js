@@ -79,7 +79,7 @@ const ReplyComment = (props) => {
         </Col>
         <Col span={14}>
           <List
-          id="scroll-hover"
+            id="scroll-hover"
             itemLayout="vertical"
             header={<Title level={5}>Bình luận (1226)</Title>}
             dataSource={dataList}

@@ -1,9 +1,11 @@
-import { Avatar, Badge, List } from "antd";
+import { Avatar, Badge, List, Row } from "antd";
 import Title from "antd/es/typography/Title";
 import React, { useEffect, useState } from "react";
 import {
   KeyboardDoubleArrowDown,
   KeyboardDoubleArrowUp,
+  MoreHoriz,
+  MoreVert,
   PendingOutlined,
   Report,
 } from "@mui/icons-material";
@@ -47,12 +49,20 @@ const Comment = () => {
         openModalReply={openModalReply}
         onCancel={() => setOpenModalReply(false)}
       />
+      <Title level={5}>Bình luận (1226)</Title>
       <List
+        id="scroll-hover"
         itemLayout="vertical"
-        header={<Title level={5}>Bình luận (1226)</Title>}
         dataSource={dataList}
-        pagination={{ pageSize: 5, align: "center", position: "both" }}
-        footer={<WriteComment />}
+        pagination={{ pageSize: 5, align: "center", position: "bottom" }}
+        style={{ height: "50vh" }}
+        loadMore={
+          <Row justify={"center"}>
+            <span className="buttonGrayIcon">
+              <MoreHoriz />
+            </span>
+          </Row>
+        }
         renderItem={(item, index) => (
           <List.Item
             extra={
@@ -83,7 +93,7 @@ const Comment = () => {
                 </Badge>
               </span>,
               <span className="fac buttonGrayIcon">
-                <Report />
+                <MoreVert />
               </span>,
             ]}
           >
@@ -99,6 +109,7 @@ const Comment = () => {
           </List.Item>
         )}
       />
+      <WriteComment />
     </div>
   );
 };

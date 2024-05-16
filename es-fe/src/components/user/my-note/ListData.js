@@ -84,7 +84,7 @@ const ListData = (props) => {
   useEffect(() => {}, [render]);
   return (
     <Row justify={"center"} className="bcb-green ">
-      <Col span={6} className={`${styles.wh}  bce-green`}>
+      <Col span={6} id="scroll-hover" className={`${styles.wh}  bce-green`}>
         <div className="bg-wh p-32">
           <Title level={4}>
             Từ vựng - Chủ để liên quan đến thể thao <GlobalOutlined />
@@ -195,7 +195,7 @@ const ListData = (props) => {
           </Row>
         </div>
       </Col>
-      <Col span={18} className={styles.wh}>
+      <Col span={18} className={styles.wh} id="scroll-hover">
         <Row className=" bg-wh p-32 " justify={"space-between"}>
           <div className="fac">
             <Text type="secondary" className="fac me-8">

@@ -330,7 +330,7 @@ const MyNote = () => {
                 to={""}
               >
                 <AccessAlarm />
-                Nhắc nhở
+                Ưu tiên
               </Link>
               <Link
                 onClick={() => {
