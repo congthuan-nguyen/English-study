@@ -62,7 +62,6 @@ const Comment = () => {
                 src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
               />
             }
-            children={<WriteComment />}
             actions={[
               <div className="fac mt-8">
                 <span className="fac buttonGrayIcon">
