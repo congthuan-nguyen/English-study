@@ -9,7 +9,7 @@ import {
   PlusCircleOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Edit, Reply, Visibility } from "@mui/icons-material";
+import { Bookmark, Edit, Reply, Visibility } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import Comment from "../comment/Comment";
 const { Text } = Typography;
@@ -230,6 +230,14 @@ const ListData = (props) => {
                   );
                 })}
             </Table>
+            <Row justify={"end"} className="mtb-8">
+              <span className="buttonGrayIcon">
+                <Reply style={{ transform: "scaleX(-1)" }} />
+              </span>
+              <span className="buttonGrayIcon">
+                <Bookmark />
+              </span>
+            </Row>
           </Col>
           <Col span={24}>
             <Comment />

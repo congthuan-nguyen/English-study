@@ -76,7 +76,7 @@ const WriteComment = () => {
         }}
         value={comment}
         onChange={(e) => {
-          setcomment(e.target.value.trim());
+          setcomment(e.target.value);
         }}
         maxLength={1000}
         autoSize={{ minRows: 4, maxRows: 8 }}
