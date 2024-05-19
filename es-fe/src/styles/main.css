@@ -423,3 +423,7 @@ tr > th {
 #scroll-hover:hover {
   overflow-y: scroll;
 }
+
+ul > li {
+  list-style: none;
+}

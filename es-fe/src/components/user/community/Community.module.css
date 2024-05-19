@@ -1,0 +1,28 @@
+.ulMenu {
+  padding: 0;
+}
+.menu {
+  font-size: 18px;
+}
+
+.btnMenu {
+  color: black;
+  display: block;
+  padding: 12px 20px;
+  border-radius: 8px;
+}
+
+.btnMenu:hover {
+  background-color: rgba(206, 218, 196, 0.9);
+  color: black;
+  animation: showButton 0.3s ease-in-out;
+}
+
+@keyframes showButton {
+  from {
+    background-color: transparent;
+  }
+  to {
+    background-color: rgba(206, 218, 196, 0.9);
+  }
+}

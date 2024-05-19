@@ -195,7 +195,7 @@ const ListData = (props) => {
           </Row>
         </div>
       </Col>
-      <Col span={18} className={styles.wh} id="scroll-hover">
+      <Col span={18} className={styles.wh} style={{ overflowY: "scroll" }}>
         <Row className=" bg-wh p-32 " justify={"space-between"}>
           <div className="fac">
             <Text type="secondary" className="fac me-8">
