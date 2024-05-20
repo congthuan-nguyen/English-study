@@ -1,15 +1,21 @@
 import React from "react";
 import styles from "./Community.module.css";
 import { Link } from "react-router-dom";
-import { Explore, History, Person, Person3 } from "@mui/icons-material";
+import {
+  Explore,
+  Groups,
+  History,
+  LocalOffer,
+  Person,
+  Person3,
+} from "@mui/icons-material";
 import Title from "antd/es/typography/Title";
 import { Avatar, List } from "antd";
-import { UsergroupAddOutlined } from "@ant-design/icons";
 
-const ComunityLeft = () => {
+const CommunityLeft = () => {
   const data = [
     {
-      title: "Ant Design Title 1",
+      title: "Ant Design Title 1 Ant Design Title 1 Ant Design Title 1",
     },
     {
       title: "Ant Design Title 2",
@@ -19,6 +25,20 @@ const ComunityLeft = () => {
     },
     {
       title: "Ant Design Title 4",
+    },
+  ];
+  const dataTags = [
+    {
+      title: "sports",
+    },
+    {
+      title: "question",
+    },
+    {
+      title: "reply",
+    },
+    {
+      title: "grammas",
     },
   ];
   return (
@@ -48,23 +68,47 @@ const ComunityLeft = () => {
           </li>
         </ul>
       </div>
-      <div className="m-16">
-        <Title level={5}>Nhóm của bạn</Title>
+      <div className="m-16  bcb-green">
+        <Title level={5} className="fac">
+          Nhãn phổ biến <LocalOffer className="ms-8" />
+        </Title>
         <div>
           <List
             itemLayout="vertical"
-            dataSource={data}
+            id="scroll-hover"
+            dataSource={dataTags}
+            style={{ maxHeight: "50vh" }}
             renderItem={(item, index) => (
-              <List.Item>
+              <List.Item className="buttonGrayTranset">
+                <div className=" pse-8">
+                  <span>#{item.title}</span>
+                </div>
+              </List.Item>
+            )}
+          />
+        </div>
+      </div>
+      <div className="m-16  bcb-green">
+        <Title level={5} className="fac">
+          Nhóm của bạn <Groups className="ms-8" />
+        </Title>
+        <div>
+          <List
+            itemLayout="vertical"
+            id="scroll-hover"
+            dataSource={data}
+            style={{ maxHeight: "50vh" }}
+            renderItem={(item, index) => (
+              <List.Item className="buttonGrayTranset">
                 <List.Item.Meta
                   avatar={
                     <Avatar
                       src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${index}`}
                     />
                   }
-                  title={<a href="https://ant.design">{item.title}</a>}
                   description={
                     <div>
+                      <span>{item.title}</span>
                       <span className="fac">
                         <Person3 /> 123
                       </span>
@@ -80,4 +124,4 @@ const ComunityLeft = () => {
   );
 };
 
-export default ComunityLeft;
+export default CommunityLeft;

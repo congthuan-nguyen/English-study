@@ -121,8 +121,8 @@
   margin-left: 16px;
 }
 
-.me-16 {
-  margin-right: 16px;
+.me-32 {
+  margin-right: 32px;
 }
 
 /* width */
@@ -291,10 +291,26 @@
   border-right: 1px solid #cbd5c0;
 }
 
+.bcs-green {
+  border-left: 1px solid #cbd5c0;
+}
+
 .bcb-green {
   border-bottom: 1px solid #cbd5c0;
 }
 
+/* width  */
+.w_25 {
+  width: 25%;
+}
+
+.ovfx_h {
+  overflow-x: hidden;
+}
+
+.ovfy_scr {
+  overflow-y: scroll;
+}
 /* bordere radius  */
 .br-4 {
   border-radius: 4px;
@@ -389,7 +405,7 @@
 
 /* width height */
 .h-100vh_m_66 {
-  min-height: calc(100vh - 66px);
+  height: calc(100vh - 66px);
 }
 
 @keyframes fadeIn {
