@@ -3,11 +3,12 @@ import styles from "./Community.module.css";
 import { Avatar, Row } from "antd";
 import Title from "antd/es/typography/Title";
 import { CameraAlt, Face, Link, PostAddOutlined } from "@mui/icons-material";
+import Posts from "../post/Posts";
 
 const CommunityCenter = () => {
   return (
-    <div className={`bg-gg h100 ${styles.parPostBlog}`}>
-      <div className={`${styles.postBlog} mse-32`}>
+    <div className={`bg-gg h-100vh_m_66 ${styles.parPostBlog}`}>
+      <div className={`${styles.postBlog} mt20se32`}>
         <Row justify={"space-between"} className="p-16" align={"middle"}>
           <Avatar className="me-32" />
           <Title level={5} className="fac me-32" style={{ marginBottom: 0 }}>
@@ -28,6 +29,20 @@ const CommunityCenter = () => {
             </span>
           </div>
         </Row>
+      </div>
+      <div className={styles.posts}>
+        <div className={styles.post}>
+          <Posts />
+        </div>
+        <div className={styles.post}>
+          <Posts />
+        </div>
+        <div className={styles.post}>
+          <Posts />
+        </div>
+        <div className={styles.post}>
+          <Posts />
+        </div>
       </div>
     </div>
   );
