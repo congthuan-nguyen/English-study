@@ -1,5 +1,5 @@
 import { Col, Popover, Row, Space, Tooltip, Typography } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   CameraAlt,
   EmojiEmotions,
@@ -19,6 +19,7 @@ const WriteComment = () => {
   const [comment, setcomment] = useState("");
   const [emojiOpen, setEmojiOpen] = useState(false);
   const [render, setRender] = useState("");
+  const inputRef = useRef(null);
 
   const [dataList, setDataList] = useState([
     {
@@ -105,31 +106,33 @@ const WriteComment = () => {
                 open={emojiOpen}
               />
             }
-            title="Title"
+            title="Emojis"
             trigger="click"
             open={emojiOpen}
             onOpenChange={setEmojiOpen}
           >
-            <Tooltip placement="top" title="Bình luận bằng emoji">
-              <span
-                className="buttonGrayIcon fac"
-                onClick={() => setEmojiOpen(true)}
-              >
-                <EmojiEmotions />
-              </span>
-            </Tooltip>
-          </Popover>
-          <Tooltip placement="top" title="Chèn ảnh vào bình luận">
-            <label htmlFor="file" className="buttonGrayIcon fac">
-              <CameraAlt />
-            </label>
-          </Tooltip>
-
-          <Tooltip placement="top" title="Chèn nhãn dán vào bình luận">
-            <span className="buttonGrayIcon fac">
-              <FlutterDash />
+            <span
+              className="buttonGrayIcon fac"
+              onClick={() => setEmojiOpen(true)}
+              title="Bình luận bằng emoji"
+            >
+              <EmojiEmotions />
             </span>
-          </Tooltip>
+          </Popover>
+          <label
+            htmlFor="file"
+            title="Chèn ảnh vào bình luận"
+            className="buttonGrayIcon fac"
+          >
+            <CameraAlt />
+          </label>
+
+          <span
+            title="Chèn nhãn dán vào bình luận"
+            className="buttonGrayIcon fac"
+          >
+            <FlutterDash />
+          </span>
         </Space>
         <span
           className="buttonGrayIcon fac"

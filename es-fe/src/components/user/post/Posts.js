@@ -9,6 +9,7 @@ import {
   PendingOutlined,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import WriteComment from "../comment/WriteComment";
 
 const Posts = () => {
   return (
@@ -80,7 +81,9 @@ const Posts = () => {
                   </Row>
                 </Space>
               </div>
-              <div></div>
+              <div>
+                <WriteComment />
+              </div>
             </div>
           </Col>
         </Row>

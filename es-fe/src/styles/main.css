@@ -17,6 +17,10 @@
   padding: 16px;
 }
 
+.pt-64 {
+  padding-top: 64px;
+}
+
 .p-32 {
   padding: 32px;
 }

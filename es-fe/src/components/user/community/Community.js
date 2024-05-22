@@ -1,5 +1,5 @@
-import { Col, Row } from "antd";
 import React from "react";
+import { Col, Row } from "antd";
 import CommunityLeft from "./CommunityLeft";
 import CommunityRight from "./CommunityRight";
 import CommunityCenter from "./CommunityCenter";
