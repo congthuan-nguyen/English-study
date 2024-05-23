@@ -5,10 +5,10 @@ import GroupLeft from "./GroupLeft";
 const Group = () => {
   return (
     <Row className="bg-gg h-100vh_m_66">
-      <Col span={4}>
+      <Col span={5}>
         <GroupLeft />
       </Col>
-      <Col span={20}></Col>
+      <Col span={19}></Col>
     </Row>
   );
 };

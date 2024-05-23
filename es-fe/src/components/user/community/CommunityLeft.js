@@ -44,23 +44,23 @@ const CommunityLeft = () => {
   return (
     <>
       <div className="p-16 m-16 bcb-green">
-        <ul className={styles.ulMenu}>
-          <li className={styles.menu}>
-            <Link className={`${styles.btnMenu}`} to={""}>
+        <ul className={"ulMenu"}>
+          <li className={"menu"}>
+            <Link className={"btnMenu"} to={""}>
               <div className="fac">
                 <Explore /> <span className="ms-8">Phổ biến nhất</span>
               </div>
             </Link>
           </li>
-          <li className={styles.menu}>
-            <Link className={`${styles.btnMenu}`} to={""}>
+          <li className={"menu"}>
+            <Link className={"btnMenu"} to={""}>
               <div className="fac">
                 <History /> <span className="ms-8">Lịch sử tương tác</span>
               </div>
             </Link>
           </li>
-          <li className={styles.menu}>
-            <Link className={`${styles.btnMenu}`} to={""}>
+          <li className={"menu"}>
+            <Link className={"btnMenu"} to={""}>
               <div className="fac">
                 <Person /> <span className="ms-8">Bài đăng của tôi</span>
               </div>
