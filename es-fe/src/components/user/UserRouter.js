@@ -7,7 +7,7 @@ import MyNote from "./my-note/MyNote";
 import Community from "./community/Community";
 import CreateList from "./my-note/CreateList";
 import ListData from "./my-note/ListData";
-import Group from "../group/Group";
+import Group from "./group/Group";
 
 const UserRouter = () => {
   return (

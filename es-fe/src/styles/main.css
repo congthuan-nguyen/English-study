@@ -33,6 +33,10 @@
   margin: 0;
 }
 
+.m-8 {
+  margin: 8px;
+}
+
 .pse-16 {
   padding: 0 16px;
 }
