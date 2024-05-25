@@ -77,6 +77,24 @@
   border-radius: 0px;
 }
 
+.input-no-border {
+  border: 0px;
+  width: 100%;
+  border-radius: 0px;
+  box-shadow: transparent 0px 0px !important;
+  height: 100%;
+  background-color: transparent;
+}
+
+.input-no-border:focus {
+  background-color: transparent;
+}
+
+.input-no-border:focus-visible {
+  outline-offset: unset;
+  outline: unset;
+}
+
 .m-20 {
   margin: 20px;
 }

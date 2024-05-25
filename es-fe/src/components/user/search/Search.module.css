@@ -6,6 +6,10 @@
   border-radius: 66px;
 }
 
+.search:focus-within {
+  background-color: white;
+}
+
 .search:hover {
   background-color: white;
 }

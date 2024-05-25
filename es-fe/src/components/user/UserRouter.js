@@ -8,6 +8,7 @@ import Community from "./community/Community";
 import CreateList from "./my-note/CreateList";
 import ListData from "./my-note/ListData";
 import Group from "./group/Group";
+import GroupDetail from "./group/GroupDetail";
 
 const UserRouter = () => {
   return (
@@ -24,7 +25,10 @@ const UserRouter = () => {
             <Route path="list-store/data/id" element={<ListData />} />
           </Route>
           <Route path="/community" element={<Community />} />
-          <Route path="/group" element={<Group />} />
+          <Route path="group">
+            <Route index element={<Group />} />
+            <Route path="detail/id" element={<GroupDetail />} />
+          </Route>
         </Routes>
       </Col>
     </Row>
