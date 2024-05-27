@@ -6,7 +6,7 @@ import Title from "antd/es/typography/Title";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
 const Search = () => {
-  const [search, setSearch] = useState(true);
+  const [search, setSearch] = useState(false);
   return (
     <div className={`${styles.search} m-16`}>
       {search ? (

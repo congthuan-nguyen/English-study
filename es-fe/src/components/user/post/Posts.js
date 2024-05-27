@@ -16,7 +16,7 @@ const Posts = () => {
     <div>
       <div className="mse-32">
         <Row justify={"center"}>
-          <Col span={22} className={`${styles.post} bg-wh`}>
+          <Col span={24} className={`${styles.post} bg-wh`}>
             <div className={`p-32`}>
               <Row justify={"space-between"} align={"middle"}>
                 <div className="fac">

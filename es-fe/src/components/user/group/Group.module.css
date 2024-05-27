@@ -5,7 +5,50 @@
 .banner {
   background: linear-gradient(
     to bottom,
-    rgba(185, 185, 185, 0.3) 0%,
+    rgba(84, 139, 80, 0.3) 0%,
     rgba(255, 254, 254, 0.7) 100%
   );
+}
+
+.postGroup {
+  height: calc(100vh - 96px - 66px);
+}
+
+.menu li {
+  display: inline-block;
+  padding: 12px 24px;
+  border-bottom: 4px solid transparent;
+}
+
+.menu li:hover {
+  animation: showbb 0.5s ease-in-out;
+  cursor: pointer;
+  color: #819171;
+  border-bottom: 4px solid #819171;
+}
+.menuItemActive {
+  color: #819171;
+  border-bottom: 4px solid #819171 !important;
+}
+
+@keyframes showbb {
+  from {
+    color: black;
+    border-bottom: 4px solid transparent;
+  }
+
+  to {
+    color: #819171;
+    border-bottom: 4px solid #819171;
+  }
+}
+
+.menu {
+  margin: 0;
+  padding: 0;
+}
+
+.introduce {
+  border-radius: 20px;
+  padding: 16px;
 }

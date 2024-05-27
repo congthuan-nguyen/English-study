@@ -1,3 +1,16 @@
 .post {
   border-radius: 20px;
 }
+
+.postBlog {
+  cursor: pointer;
+  border-bottom: 1px solid #d9e7cb;
+  background-color: rgba(255, 254, 254, 0.7);
+  backdrop-filter: blur(8px);
+  border-radius: 66px;
+  height: 64px;
+}
+
+.postBlog:hover {
+  background-color: white;
+}
