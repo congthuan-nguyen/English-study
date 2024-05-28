@@ -98,6 +98,7 @@ const WriteComment = () => {
         </Col>
         <Space>
           <Popover
+            zIndex={9999999}
             content={
               <EmojiPicker
                 onEmojiClick={(e) => {
@@ -106,13 +107,14 @@ const WriteComment = () => {
                 open={emojiOpen}
               />
             }
+            placement="bottomLeft"
             title="Emojis"
             trigger="click"
             open={emojiOpen}
             onOpenChange={setEmojiOpen}
           >
             <span
-              className="buttonGrayIcon fac"
+              className="buttonGrayIcon"
               onClick={() => setEmojiOpen(true)}
               title="Bình luận bằng emoji"
             >
@@ -122,20 +124,17 @@ const WriteComment = () => {
           <label
             htmlFor="file"
             title="Chèn ảnh vào bình luận"
-            className="buttonGrayIcon fac"
+            className="buttonGrayIcon"
           >
             <CameraAlt />
           </label>
 
-          <span
-            title="Chèn nhãn dán vào bình luận"
-            className="buttonGrayIcon fac"
-          >
+          <span title="Chèn nhãn dán vào bình luận" className="buttonGrayIcon">
             <FlutterDash />
           </span>
         </Space>
         <span
-          className="buttonGrayIcon fac"
+          className="buttonGrayIcon"
           onClick={() => {
             addComment();
           }}

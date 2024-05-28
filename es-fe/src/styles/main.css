@@ -267,13 +267,17 @@
 }
 
 .buttonGrayIcon {
-  padding: 8px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 4px;
 }
 .buttonGrayIcon:hover {
   cursor: pointer;
   background-color: rgba(214, 219, 210, 0.9);
-  animation: showButton 0.5s ease-in-out;
+  animation: showButton 0.3s ease-in-out;
 }
 
 .buttonGrayIconFocus {
@@ -512,4 +516,12 @@ ul > li {
   background-color: rgba(206, 218, 196, 0.9);
   color: black;
   animation: showButton 0.3s ease-in-out;
+}
+
+.d-none {
+  display: none;
+}
+
+.d-flex {
+  display: flex;
 }

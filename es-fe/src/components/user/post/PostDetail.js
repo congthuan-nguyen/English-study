@@ -1,37 +1,70 @@
-import { Avatar, Col, Row, Space } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./Post.module.css";
-import Title from "antd/es/typography/Title";
+import { Avatar, Col, Row, Space } from "antd";
 import {
+  Close,
   KeyboardDoubleArrowDown,
   KeyboardDoubleArrowUp,
   MoreVert,
   PendingOutlined,
 } from "@mui/icons-material";
+import Title from "antd/es/typography/Title";
 import { Link } from "react-router-dom";
 import WriteComment from "../comment/WriteComment";
-import PostDetail from "./PostDetail";
+import ImageAction from "../../image/ImageAction";
 
-const Posts = (props) => {
+const PostDetail = (props) => {
+  const [fullScreen, setFullScreen] = useState(false);
   return (
-    <div>
-      <div className="mse-32">
+    <Row
+      className={`${styles.PostDetail} ${props.className}`}
+      justify={"center"}
+      align={"middle"}
+    >
+      <Col span={14}>
         <Row justify={"center"}>
-          <Col span={24} className={`${styles.post} bg-wh`}>
-            <div className={`p-32`}>
-              <Row justify={"space-between"} align={"middle"}>
-                <div className="fac">
-                  <Space>
-                    <Avatar size={48} />
-                    <Title level={4} style={{ margin: 0 }}>
-                      Account name
-                    </Title>
-                    <span>Đã đăng 14 phút trước</span>
-                  </Space>
-                </div>
-                <MoreVert />
-              </Row>
-              <div cl>
+          <img
+            alt=""
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLMm7G6605fnEJP4-AEaWNI41fH6xh6cqyjSxn7mwkNg&s"
+            width={"75%"}
+            id="img"
+            onMouseDown={(e) => {}}
+          />
+          <Col span={24}>
+            <Row className="mt-16" justify={"center"}>
+              <ImageAction imgId={"img"} fullScreen={setFullScreen} />
+            </Row>
+          </Col>
+        </Row>
+      </Col>
+      <Col
+        span={10}
+        className={`${styles.PostDetailRight} ${
+          fullScreen ? "d-none" : ""
+        } p-16 bcs-green`}
+      >
+        <Row justify={"space-between"} align={"top"}>
+          <div>
+            <div className={styles.postDetailHeader}>
+              <Space>
+                <Avatar size={48} />
+                <Title level={4} style={{ margin: 0 }}>
+                  Account name
+                </Title>
+                <span>Đã đăng 14 phút trước</span>
+              </Space>
+              <span
+                className="buttonGrayIcon"
+                onClick={() => {
+                  props.setOpenPostDetail("d-none");
+                }}
+              >
+                <Close />
+              </span>
+            </div>
+
+            <Col span={24}>
+              <div>
                 <Space direction="vertical" size={16}>
                   <Title level={3}>Tiêu đề của bài viết</Title>
                   <span>
@@ -48,11 +81,6 @@ const Posts = (props) => {
                       <Link to={""}>#knownledge</Link>
                     </Space>
                   </div>
-                  <img
-                    alt=""
-                    width={"50%"}
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLMm7G6605fnEJP4-AEaWNI41fH6xh6cqyjSxn7mwkNg&s"
-                  />
                   <Row className="bcb-green" align={"middle"}>
                     <Col span={4} className="buttonGrayIcon  ">
                       <Row justify={"center"}>
@@ -69,18 +97,12 @@ const Posts = (props) => {
                         <KeyboardDoubleArrowDown />
                       </Row>
                     </Col>
-                    <Col
-                      span={6}
-                      className="buttonGrayIcon bce-green "
-                      onClick={() => {
-                        props.setOpenPostDetail("d-flex");
-                      }}
-                    >
+                    <Col span={6} className="buttonGrayIcon bce-green ">
                       <Row justify={"center"}>
                         <PendingOutlined />
                       </Row>
                     </Col>
-                    <Col span={6} className="buttonGrayIcon ">
+                    <Col span={6} className="buttonGrayIcon bce-green ">
                       <Row justify={"center"}>
                         <MoreVert />
                       </Row>
@@ -91,12 +113,12 @@ const Posts = (props) => {
               <div>
                 <WriteComment />
               </div>
-            </div>
-          </Col>
+            </Col>
+          </div>
         </Row>
-      </div>
-    </div>
+      </Col>
+    </Row>
   );
 };
 
-export default Posts;
+export default PostDetail;

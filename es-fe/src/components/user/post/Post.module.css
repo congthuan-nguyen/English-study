@@ -14,3 +14,26 @@
 .postBlog:hover {
   background-color: white;
 }
+
+.PostDetail {
+  position: fixed;
+  z-index: 99999;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 254, 254, 0.1);
+  backdrop-filter: blur(4px);
+}
+.PostDetailRight {
+  height: 100vh;
+  background-color: white;
+}
+
+.postDetailHeader {
+  height: 48px;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
