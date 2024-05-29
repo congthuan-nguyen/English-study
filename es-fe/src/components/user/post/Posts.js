@@ -10,11 +10,13 @@ import {
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import WriteComment from "../comment/WriteComment";
-import PostDetail from "./PostDetail";
+import Image from "../../image/Image";
+import PostUpload from "./PostUpload";
 
 const Posts = (props) => {
   return (
     <div>
+      <PostUpload />
       <div className="mse-32">
         <Row justify={"center"}>
           <Col span={24} className={`${styles.post} bg-wh`}>
@@ -48,11 +50,27 @@ const Posts = (props) => {
                       <Link to={""}>#knownledge</Link>
                     </Space>
                   </div>
-                  <img
-                    alt=""
-                    width={"50%"}
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLMm7G6605fnEJP4-AEaWNI41fH6xh6cqyjSxn7mwkNg&s"
-                  />
+                  <div>
+                    <img
+                      alt="a 2"
+                      src="https://i.pinimg.com/736x/e3/88/44/e38844ef720e15f03af4cb1c05a7505f.jpg"
+                      height={240}
+                      style={{ objectFit: "cover", aspectRatio: "auto" }}
+                    />
+                    <img
+                      alt="a 3"
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLMm7G6605fnEJP4-AEaWNI41fH6xh6cqyjSxn7mwkNg&s"
+                      height={240}
+                      style={{ objectFit: "cover", aspectRatio: "auto" }}
+                    />
+                    <img
+                      alt="a 1"
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLMm7G6605fnEJP4-AEaWNI41fH6xh6cqyjSxn7mwkNg&s"
+                      height={240}
+                      style={{ objectFit: "cover", aspectRatio: "auto" }}
+                    />
+                  </div>
+
                   <Row className="bcb-green" align={"middle"}>
                     <Col span={4} className="buttonGrayIcon  ">
                       <Row justify={"center"}>

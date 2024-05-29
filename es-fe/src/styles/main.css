@@ -76,8 +76,12 @@
   box-shadow: transparent 0px 0px !important;
 }
 
+.textArea-no-border:hover {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px !important;
+}
+
 .textArea-no-border:focus {
-  box-shadow: transparent 0px 0px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px !important;
   border-radius: 0px;
 }
 
@@ -90,8 +94,13 @@
   background-color: transparent;
 }
 
+.input-no-border:hover {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px !important;
+}
+
 .input-no-border:focus {
   background-color: transparent;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px !important;
 }
 
 .input-no-border:focus-visible {
@@ -524,4 +533,25 @@ ul > li {
 
 .d-flex {
   display: flex;
+}
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -2px; /* Trừ đi khoảng cách của các lề để không có khoảng trống */
+}
+.flex-item {
+  flex: 1 1 calc(33.333% - 4px); /* Điều chỉnh % tùy vào số lượng ảnh trên một hàng */
+  margin: 2px; /* Đặt khoảng cách âm */
+  box-sizing: border-box;
+}
+.flex-item img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.title-input {
+  font-weight: 500;
+  font-size: 18px;
+  padding: 12px 12px;
+  width: 100%;
 }
