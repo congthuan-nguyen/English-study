@@ -76,15 +76,6 @@
   box-shadow: transparent 0px 0px !important;
 }
 
-.textArea-no-border:hover {
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px !important;
-}
-
-.textArea-no-border:focus {
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px !important;
-  border-radius: 0px;
-}
-
 .input-no-border {
   border: 0px;
   width: 100%;

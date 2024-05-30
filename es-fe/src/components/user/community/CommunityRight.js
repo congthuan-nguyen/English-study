@@ -1,83 +1,34 @@
-import { Duo, OnlinePrediction } from "@mui/icons-material";
+import { ArrowRight, Duo, OnlinePrediction } from "@mui/icons-material";
 import Title from "antd/es/typography/Title";
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Community.module.css";
+import Live from "../../video/Live";
+import LiveDetail from "../../video/LiveDetail";
+import { Row } from "antd";
+import { Link } from "react-router-dom";
 
 const CommunityRight = () => {
+  const [openLiveDetail, setOpenLiveDetail] = useState(false);
   return (
     <div className="pse-32 ">
-      <div>
+      <LiveDetail
+        openLiveDetail={openLiveDetail}
+        setOpenLiveDetail={setOpenLiveDetail}
+      />
+      <Row justify={"space-between"} align={"middle"}>
         <Title level={3} color="red" className="fac">
           Trực tiếp <Duo className="ms-8" />
         </Title>
-      </div>
-      <div className={`${styles.pp} bs-glittle m-16`}>
-        <img
-          alt=""
-          className={styles.img}
-          src={
-            "https://imsgeneva.ch/wp-content/uploads/2020/04/English-Live.png"
-          }
-        />
-        <div className={`${styles.paContent}`}>
-          <Title level={5} style={{ color: "#FEFDED" }} className="fac">
-            Account names{" "}
-            <OnlinePrediction className="ms-8" style={{ color: "#EE4E4E" }} />
-          </Title>
-          <span>Nội dung live của bài</span>
-          <span>#English #live #knowledge</span>
-        </div>
-      </div>
-      <div className={`${styles.pp} bs-glittle m-16`}>
-        <img
-          alt=""
-          className={styles.img}
-          src={
-            "https://imsgeneva.ch/wp-content/uploads/2020/04/English-Live.png"
-          }
-        />
-        <div className={`${styles.paContent}`}>
-          <Title level={5} style={{ color: "#FEFDED" }} className="fac">
-            Account names{" "}
-            <OnlinePrediction className="ms-8" style={{ color: "#EE4E4E" }} />
-          </Title>
-          <span>Nội dung live của bài</span>
-          <span>#English #live #knowledge</span>
-        </div>
-      </div>
-      <div className={`${styles.pp} bs-glittle m-16`}>
-        <img
-          alt=""
-          className={styles.img}
-          src={
-            "https://imsgeneva.ch/wp-content/uploads/2020/04/English-Live.png"
-          }
-        />
-        <div className={`${styles.paContent}`}>
-          <Title level={5} style={{ color: "#FEFDED" }} className="fac">
-            Account names{" "}
-            <OnlinePrediction className="ms-8" style={{ color: "#EE4E4E" }} />
-          </Title>
-          <span>Nội dung live của bài</span>
-          <span>#English #live #knowledge</span>
-        </div>
-      </div>
-      <div className={`${styles.pp} bs-glittle m-16`}>
-        <img
-          alt=""
-          className={styles.img}
-          src={
-            "https://imsgeneva.ch/wp-content/uploads/2020/04/English-Live.png"
-          }
-        />
-        <div className={`${styles.paContent}`}>
-          <Title level={5} style={{ color: "#FEFDED" }} className="fac">
-            Account names{" "}
-            <OnlinePrediction className="ms-8" style={{ color: "#EE4E4E" }} />
-          </Title>
-          <span>Nội dung live của bài</span>
-          <span>#English #live #knowledge</span>
-        </div>
+        <Link to="" className="fac">
+          Xem tất cả <ArrowRight />
+        </Link>
+      </Row>
+      <div className={styles.lives}>
+        <Live setOpenLiveDetail={setOpenLiveDetail} />
+        <Live />
+        <Live />
+        <Live />
+        <Live />
       </div>
     </div>
   );

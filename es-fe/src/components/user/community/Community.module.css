@@ -36,7 +36,12 @@
 }
 
 .post {
-  padding-top: 20px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+.lives {
+  height: calc(100vh - 134px);
+  overflow-y: scroll;
 }
 @keyframes showButton {
   from {

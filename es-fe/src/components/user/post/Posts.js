@@ -16,7 +16,6 @@ import PostUpload from "./PostUpload";
 const Posts = (props) => {
   return (
     <div>
-      <PostUpload />
       <div className="mse-32">
         <Row justify={"center"}>
           <Col span={24} className={`${styles.post} bg-wh`}>
