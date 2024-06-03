@@ -19,7 +19,7 @@ const CommunityRight = () => {
         <Title level={3} color="red" className="fac">
           Trực tiếp <Duo className="ms-8" />
         </Title>
-        <Link to="" className="fac">
+        <Link to="list-live" className="fac">
           Xem tất cả <ArrowRight />
         </Link>
       </Row>

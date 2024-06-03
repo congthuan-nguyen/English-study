@@ -1,0 +1,8 @@
+.nodes {
+  border: 1px solid #d9e7cb;
+  background-color: #d9e7cb;
+  border-radius: 20px;
+  width: auto;
+  max-width: 75vh;
+  overflow-wrap: break-word;
+}

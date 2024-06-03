@@ -19,7 +19,6 @@ const WriteComment = () => {
   const [comment, setcomment] = useState("");
   const [emojiOpen, setEmojiOpen] = useState(false);
   const [render, setRender] = useState("");
-  const inputRef = useRef(null);
 
   const [dataList, setDataList] = useState([
     {

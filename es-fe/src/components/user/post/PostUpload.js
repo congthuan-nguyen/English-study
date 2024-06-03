@@ -12,6 +12,7 @@ import {
 import TextArea from "antd/es/input/TextArea";
 import EmojiPicker from "emoji-picker-react";
 import Editor from "../../editor/EditorText";
+import { CameraFilled } from "@ant-design/icons";
 
 const PostUpload = (props) => {
   const [emojiOpen, setEmojiOpen] = useState(false);
@@ -25,7 +26,7 @@ const PostUpload = (props) => {
       <Col
         span={10}
         className={`bg-wh p-16 br-4 bc-green`}
-        style={{ maxHeight: "75%", height: "fit-content" }}
+        style={{ maxHeight: "100%", height: "fit-content" }}
       >
         <div className={`${styles.postDetailHeader} mb-16`}>
           <Space>
@@ -45,9 +46,22 @@ const PostUpload = (props) => {
         </div>
         <div className="mse-32">
           <div className="mt-16">
-            <Editor />
-            <Row justify={"space-between"} className="mt-32">
-              <Space>
+            <div className={styles.componentPostUpload}>
+              <Editor />
+              <div className="fjc">
+                <Space size={20}>
+                  <div>
+                    <Avatar icon={<CameraFilled />} size={180} shape="square" />
+                  </div>
+                  <div>
+                    <Avatar icon={<CameraFilled />} size={180} shape="square" />
+                  </div>
+                  <div>
+                    <Avatar icon={<CameraFilled />} size={180} shape="square" />
+                  </div>
+                </Space>
+              </div>
+              <div className="mt-32 fjc">
                 <label
                   htmlFor="file"
                   title="Chèn hình ảnh"
@@ -55,8 +69,8 @@ const PostUpload = (props) => {
                 >
                   <CameraAlt />
                 </label>
-              </Space>
-            </Row>
+              </div>
+            </div>
           </div>
           <Divider />
           <Row justify={"end"}>

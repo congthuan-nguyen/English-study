@@ -12,6 +12,7 @@ import {
 import { Bookmark, Edit, Reply, Visibility } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import Comment from "../comment/Comment";
+import Flow from "../../mindmap/Flow";
 const { Text } = Typography;
 const ListData = (props) => {
   const [previewImage, setPreviewImage] = useState("");
@@ -238,6 +239,10 @@ const ListData = (props) => {
                 <Bookmark />
               </span>
             </Row>
+          </Col>
+          <Col span={20}>
+            <Title level={4}>Sơ đồ tư duy</Title>
+            <Flow />
           </Col>
           <Col span={24}>
             <Comment />

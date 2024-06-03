@@ -55,6 +55,16 @@
   position: relative;
 }
 
+.liveStreaming {
+  position: absolute;
+  right: 0;
+  top: 10%;
+  height: 75%;
+  width: 100%;
+  background-image: url("https://i.ytimg.com/vi/M8Or-CSKtJQ/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAMUycnFUmp71n8_hSnq6czKZxCsg");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
 .closeButton {
   position: absolute;
   top: 12px;
@@ -73,6 +83,16 @@
   top: 20%;
   height: 50%;
   width: 40%;
+  background-color: rgba(59, 59, 59, 0.7);
+  border-radius: 20px;
+  opacity: 0.3;
+}
+
+.comments:hover {
+  opacity: 1;
+}
+
+.commentsUser {
+  height: calc(100% - 24px);
   overflow-y: scroll;
-  background-color: rgba(211, 211, 211, 0.7);
 }

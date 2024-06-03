@@ -1,0 +1,9 @@
+.commentLive {
+  padding: 8px;
+  color: white;
+}
+
+.commentLive:hover {
+  background-color: rgba(156, 156, 156, 0.7);
+  cursor: pointer;
+}

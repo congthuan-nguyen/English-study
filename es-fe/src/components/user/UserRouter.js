@@ -9,6 +9,8 @@ import CreateList from "./my-note/CreateList";
 import ListData from "./my-note/ListData";
 import Group from "./group/Group";
 import GroupDetail from "./group/GroupDetail";
+import LiveList from "../video/LiveList";
+import Flow from "../mindmap/Flow";
 
 const UserRouter = () => {
   return (
@@ -24,11 +26,15 @@ const UserRouter = () => {
             <Route path="create-list/id" element={<CreateList />} />
             <Route path="list-store/data/id" element={<ListData />} />
           </Route>
-          <Route path="/community" element={<Community />} />
+          <Route path="/community">
+            <Route index element={<Community />} />
+            <Route path="list-live" element={<LiveList />} />
+          </Route>
           <Route path="group">
             <Route index element={<Group />} />
             <Route path="detail/id" element={<GroupDetail />} />
           </Route>
+          <Route path="/mind-map" element={<Flow />}></Route>
         </Routes>
       </Col>
     </Row>
