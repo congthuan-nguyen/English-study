@@ -15,124 +15,94 @@ const styleNodes = {
   maxWidth: "75vh",
   overflowWrap: "break-word",
 };
-const initialNodes = [
-  {
-    id: "1",
-    data: { label: "Từ vựng" },
-    position: { x: 0, y: 100 },
-    style: styleNodes,
-    sourcePosition: "right",
-    type: "input",
-  },
-  {
-    id: "2",
-    data: { label: "Phiên âm" },
-    style: styleNodes,
-    position: { x: 100, y: 100 },
-    sourcePosition: "right",
-    targetPosition: "left",
-  },
-  {
-    id: "3.1",
-    data: { label: "Loại từ 1" },
-    style: styleNodes,
-    position: { x: 200, y: 0 },
-    sourcePosition: "right",
-    targetPosition: "left",
-  },
-  {
-    id: "3.2",
-    data: { label: "Loại từ 2" },
-    style: styleNodes,
-    position: { x: 200, y: 100 },
-    sourcePosition: "right",
-    targetPosition: "left",
-  },
-  {
-    id: "4.1",
-    data: { label: "Ngữ nghĩa 1" },
-    style: styleNodes,
-    position: { x: 300, y: -100 },
-    sourcePosition: "right",
-    targetPosition: "left",
-  },
-  {
-    id: "4.2",
-    data: { label: "Ngữ nghĩa 2" },
-    style: styleNodes,
-    position: { x: 300, y: 0 },
-    sourcePosition: "right",
-    targetPosition: "left",
-  },
-  {
-    id: "4.3",
-    data: { label: "Ngữ nghĩa 3" },
-    style: styleNodes,
-    position: { x: 300, y: 100 },
-    sourcePosition: "right",
-    targetPosition: "left",
-  },
-  {
-    id: "5.1",
-    data: { label: "Ví dụ 1" },
-    style: styleNodes,
-    position: { x: 400, y: -100 },
-    sourcePosition: "right",
-    targetPosition: "left",
-  },
-  {
-    id: "5.2",
-    data: { label: "Ví dụ 2" },
-    style: styleNodes,
-    position: { x: 400, y: 100 },
-    sourcePosition: "right",
-    targetPosition: "left",
-  },
+const data = [
+  { value: "Comfort", id: "1" },
+  { value: "noun", id: "11" },
+  { value: "adjective", id: "12" },
+  { value: "adverb", id: "13" },
+  { value: "Comfort", id: "111" },
+  { value: "Comforter", id: "112" },
+  { value: "Comfortable", id: "121" },
+  { value: "Comforting", id: "122" },
+  { value: "Comfortably", id: "131" },
+  { value: "An ủi", id: "1111" },
+  { value: "Người an ủi", id: "1121" },
+  { value: "Thoải mái, dễ chịu", id: "1211" },
+  { value: "Mang lại sự an ủi, làm dịu", id: "1221" },
+  { value: "Một cách thoải mái, dễ chịu", id: "1311" },
 ];
 
-const initialEdges = [
-  {
-    id: "connec1",
-    source: "1",
-    target: "2",
-  },
-  {
-    id: "connec2.1",
-    source: "2",
-    target: "3.1",
-  },
-  {
-    id: "connec2.2",
-    source: "2",
-    target: "3.2",
-  },
-  {
-    id: "connec3.1",
-    source: "3.1",
-    target: "4.1",
-  },
-  {
-    id: "connec3.2",
-    source: "3.1",
-    target: "4.2",
-  },
+for (var ele in data) {
+}
 
-  {
-    id: "connec3.3",
-    source: "3.2",
-    target: "4.3",
-  },
-  {
-    id: "connec4.1",
-    source: "4.1",
-    target: "5.1",
-  },
-  {
-    id: "connec4.2",
-    source: "4.3",
-    target: "5.2",
-  },
-];
+const initialNodes = [];
+
+const initialEdges = [];
+
+// Hàm để thêm node
+const addNodeN = (id, label, x, y) => {
+  initialNodes.push({
+    id,
+    data: { label },
+    position: { x, y },
+    style: styleNodes,
+    sourcePosition: "right",
+    targetPosition: "left",
+  });
+};
+
+// Hàm để thêm cạnh
+const addEdgeN = (source, target) => {
+  initialEdges.push({
+    id: `e${source}-${target}`,
+    source,
+    target,
+    type: "smoothstep",
+  });
+};
+
+let xOffset = 0;
+const xSpacing = 200;
+const ySpacing = 100;
+const levels = {};
+
+data.forEach((item) => {
+  const level = item.id.length;
+  if (!levels[level]) {
+    levels[level] = [];
+  }
+  levels[level].push(item);
+});
+
+data.forEach((item) => {
+  const level = item.id.length;
+  if (!levels[level]) {
+    levels[level] = [];
+  }
+  levels[level].push(item);
+});
+console.log(levels);
+
+Object.keys(levels)
+  .sort((a, b) => a - b)
+  .forEach((level, index) => {
+    const items = levels[level];
+    const x = xOffset + index * xSpacing;
+    const startY = -((items.length - 1) * ySpacing) / 2;
+
+    items.forEach((item, i) => {
+      const y = startY + i * ySpacing;
+      addNodeN(item.id, item.value, x, y);
+    });
+  });
+// Tạo edges từ dữ liệu id
+data.forEach((item) => {
+  const parts = item.id;
+  if (parts.length > 1) {
+    const parentId = parts.slice(0, -1);
+    addEdgeN(parentId, item.id);
+  }
+});
 
 function Flow() {
   const [nodes, setNodes] = useState(initialNodes);
@@ -152,7 +122,7 @@ function Flow() {
   );
 
   return (
-    <div style={{ height: "30vh", width: "100%" }}>
+    <div style={{ height: "100vh", width: "100%" }}>
       <ReactFlow
         nodes={nodes}
         onNodesChange={onNodesChange}
