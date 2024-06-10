@@ -10,7 +10,7 @@ import PostNew from "../post/PostNew";
 const { Text } = Typography;
 const GroupDetail = () => {
   return (
-    <div>
+    <div className="h-100vh_m_66 ovfy_scr">
       <Row className={`${styles.banner} bcb-green`} justify={"center"}>
         <Col span={18}>
           <Image

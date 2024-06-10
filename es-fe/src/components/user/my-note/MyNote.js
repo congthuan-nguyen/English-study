@@ -314,11 +314,7 @@ const MyNote = () => {
             <BookOutlined /> Sổ tay
           </Title>
         </Row>
-        <Row justify={"end"}>
-          <Col span={8}>
-            <Input placeholder="Search your store list" size="large" />
-          </Col>
-        </Row>
+
         <Row justify={"center"} className="m-20">
           <div>
             <div className="fac">
@@ -440,6 +436,13 @@ const MyNote = () => {
                       closable={true}
                       key={index}
                     >
+                      <div>
+                        <Input
+                          placeholder="Search your store list"
+                          size="large"
+                          className="input-no-border"
+                        />
+                      </div>
                       <List itemLayout="horizontal">
                         {tab?.data?.map((item, index) => {
                           return (

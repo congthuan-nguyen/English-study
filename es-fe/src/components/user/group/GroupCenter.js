@@ -18,7 +18,7 @@ const GroupCenter = () => {
         <Row>
           {[1, 2, 3, 4, 5, 6].map((item) => {
             return (
-              <Col span={6}>
+              <Col span={8}>
                 <div className="bg-wh m-8">
                   <GroupDisplay className="bc-green br-4" />
                 </div>

@@ -2,21 +2,11 @@ import React, { useState } from "react";
 import styles from "./Post.module.css";
 import { Avatar, Col, Divider, Input, Popover, Row, Space } from "antd";
 import Title from "antd/es/typography/Title";
-import {
-  CameraAlt,
-  Close,
-  EmojiEmotions,
-  FlutterDash,
-  Send,
-} from "@mui/icons-material";
-import TextArea from "antd/es/input/TextArea";
-import EmojiPicker from "emoji-picker-react";
+import { CameraAlt, Close, Send } from "@mui/icons-material";
 import Editor from "../../editor/EditorText";
 import { CameraFilled } from "@ant-design/icons";
 
 const PostUpload = (props) => {
-  const [emojiOpen, setEmojiOpen] = useState(false);
-
   return (
     <Row
       className={`${props.openUpload ? styles.PostDetail : "d-none"}`}

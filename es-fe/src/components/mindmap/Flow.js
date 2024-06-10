@@ -32,9 +32,6 @@ const data = [
   { value: "Một cách thoải mái, dễ chịu", id: "1311" },
 ];
 
-for (var ele in data) {
-}
-
 const initialNodes = [];
 
 const initialEdges = [];
@@ -74,27 +71,29 @@ data.forEach((item) => {
   levels[level].push(item);
 });
 
-data.forEach((item) => {
-  const level = item.id.length;
-  if (!levels[level]) {
-    levels[level] = [];
-  }
-  levels[level].push(item);
-});
-console.log(levels);
+Object.keys(levels).forEach((level, index) => {
+  const items = levels[level];
+  const startY = -((items.length - 1) * ySpacing) / 2; // Tính vị trí bắt đầu y cho các mục trong cấp độ hiện tại
 
-Object.keys(levels)
-  .sort((a, b) => a - b)
-  .forEach((level, index) => {
-    const items = levels[level];
-    const x = xOffset + index * xSpacing;
-    const startY = -((items.length - 1) * ySpacing) / 2;
+  const x = xOffset + index * xSpacing; // Xác định vị trí x cho cấp độ hiện tại
 
-    items.forEach((item, i) => {
-      const y = startY + i * ySpacing;
-      addNodeN(item.id, item.value, x, y);
-    });
+  items.forEach((item, i) => {
+    var y = startY + i * ySpacing;
+    if (
+      Number(level) === 2 &&
+      Number(level) + 1 <= Number(Object.keys(levels).length)
+    ) {
+      y =
+        startY +
+        (levels[Number(level) + 1].findLastIndex((e) =>
+          e.id.includes(item.id)
+        ) -
+          1) *
+          ySpacing;
+    }
+    addNodeN(item.id, item.value, x, y); // Thêm nút với vị trí x, y
   });
+});
 // Tạo edges từ dữ liệu id
 data.forEach((item) => {
   const parts = item.id;
@@ -122,7 +121,7 @@ function Flow() {
   );
 
   return (
-    <div style={{ height: "100vh", width: "100%" }}>
+    <div style={{ height: "30vh", width: "100%" }}>
       <ReactFlow
         nodes={nodes}
         onNodesChange={onNodesChange}
