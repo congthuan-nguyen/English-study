@@ -42,11 +42,6 @@ const MyNote = () => {
   const [tabCurrent, setCurrent] = useState(0);
   const [api, contextHolder] = notification.useNotification();
   const [modal, modalContext] = Modal.useModal();
-  const [note, setNote] = useState({
-    id: "",
-    title: "",
-    description: "",
-  });
 
   const [tabs, setTabs] = useState([
     {

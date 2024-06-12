@@ -32,7 +32,7 @@ const Posts = (props) => {
                 </div>
                 <MoreVert />
               </Row>
-              <div cl>
+              <div>
                 <Space direction="vertical" size={16}>
                   <Title level={3}>Tiêu đề của bài viết</Title>
                   <span>

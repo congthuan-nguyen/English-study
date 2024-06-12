@@ -5,8 +5,12 @@ const GroupParticipated = () => {
   return (
     <div>
       <div className={styles.GroupParticipated} id="scroll-hover">
-        {[1, 2, 3, 4, 5, 6].map((item) => {
-          return <GroupDisplay />;
+        {[1, 2, 3, 4, 5, 6].map((item, index) => {
+          return (
+            <div key={index}>
+              <GroupDisplay />
+            </div>
+          );
         })}
       </div>
     </div>

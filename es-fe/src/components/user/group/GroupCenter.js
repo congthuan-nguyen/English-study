@@ -13,12 +13,12 @@ const GroupCenter = () => {
           <span className="me-8">Tất cả nhóm học</span> <FormatListBulleted />
         </Title>
         <div>
-          <Search />
+          <Search placeholder="Tìm kiếm nhóm học bạn muốn tham gia !!!" />
         </div>
         <Row>
-          {[1, 2, 3, 4, 5, 6].map((item) => {
+          {[1, 2, 3, 4, 5, 6].map((item, index) => {
             return (
-              <Col span={8}>
+              <Col span={8} key={index}>
                 <div className="bg-wh m-8">
                   <GroupDisplay className="bc-green br-4" />
                 </div>
