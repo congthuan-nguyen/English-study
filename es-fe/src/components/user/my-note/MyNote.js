@@ -395,7 +395,7 @@ const MyNote = () => {
                         indicator={<LoadingOutlined style={{ fontSize: 24 }} />}
                       >
                         <Title level={5}>
-                          <div className="fjc">Tên danh sách lưu trữ</div>
+                          <div className="fjc">Tên sổ tay</div>
                         </Title>
                         <Input
                           placeholder="input your list name"
