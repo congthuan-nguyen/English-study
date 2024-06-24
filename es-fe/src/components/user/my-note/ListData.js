@@ -10,55 +10,20 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Bookmark, Edit, Reply, Visibility } from "@mui/icons-material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Comment from "../comment/Comment";
 import Flow from "../../mindmap/Flow";
+import axios from "axios";
 const { Text } = Typography;
 const ListData = (props) => {
   const [previewImage, setPreviewImage] = useState("");
   const navigate = useNavigate();
-
+  const { noteBookId, topicId } = useParams();
   const [rows, setRows] = useState(2);
   const [expanded, setExpanded] = useState(false);
   const [owner, setOwner] = useState(true);
   const [render, setRender] = useState("");
-  const [attributes, setAttributes] = useState([
-    {
-      id: "1",
-      name: "Từ vựng",
-      type: "1",
-    },
-    {
-      id: "2",
-      name: "Phiên âm",
-      type: "2",
-    },
-    {
-      id: "3",
-      name: "Loại từ",
-      type: "3",
-    },
-    {
-      id: "4",
-      name: "Ngữ nghĩa",
-      type: "4",
-    },
-    {
-      id: "5",
-      name: "Từ đồng nghĩa",
-      type: "5",
-    },
-    {
-      id: "6",
-      name: "Từ trái nghĩa",
-      type: "6",
-    },
-    {
-      id: "7",
-      name: "Ví dụ",
-      type: "7",
-    },
-  ]);
+  const [attributes, setAttributes] = useState([]);
   const [dataList, setDataList] = useState([
     {
       title: "Account name",
@@ -82,7 +47,19 @@ const ListData = (props) => {
     },
   ]);
 
-  useEffect(() => {}, [render]);
+  useEffect(() => {
+    axios
+      .get(
+        "http://localhost:8080/api/es-study/notebook_attribute/findAllByNoteBookId?noteBookId=" +
+          noteBookId
+      )
+      .then((res) => {
+        setAttributes(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [render]);
   return (
     <Row justify={"center"} className="bcb-green ">
       <Col span={6} id="scroll-hover" className={`${styles.wh}  bce-green`}>

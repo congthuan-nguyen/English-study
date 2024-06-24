@@ -31,7 +31,8 @@ import {
 } from "antd";
 import TabPane from "antd/es/tabs/TabPane";
 import Title from "antd/es/typography/Title";
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const MyNote = () => {
@@ -42,11 +43,19 @@ const MyNote = () => {
   const [tabCurrent, setCurrent] = useState(0);
   const [api, contextHolder] = notification.useNotification();
   const [modal, modalContext] = Modal.useModal();
+  const noteBook = {
+    id: null,
+    name: null,
+    initialization: false,
+    data: [],
+  };
+  const [listTopic, setListTopic] = useState([]);
+  const [noteBooks, setNoteBooks] = useState([]);
 
   const [tabs, setTabs] = useState([
     {
       id: 1,
-      title: "Từ vựng",
+      name: "Từ vựng",
       initialization: true,
       data: [
         {
@@ -63,21 +72,10 @@ const MyNote = () => {
     },
     {
       id: 2,
-      title: "Ngữ pháp",
+      name: "Ngữ pháp",
       initialization: true,
 
-      data: [
-        {
-          id: 1,
-          title: "12 thì cơ bản",
-          description: "Hiện tại đơn, hiện tại tiếp diễn, quá khứ đơn,...",
-        },
-        {
-          id: 2,
-          title: "Các loại từ",
-          description: "Danh từ, động từ, tính từ, trạng từ,...",
-        },
-      ],
+      data: [],
     },
   ]);
   const [functionCurrent, setFunctionCurrent] = useState("alarm");
@@ -189,6 +187,39 @@ const MyNote = () => {
     setTabs(tabsCoppy);
   }
 
+  function getNoteBooks() {
+    axios
+      .get(
+        "http://localhost:8080/api/es-study/notebook/getNoteBooksDisplayResponse?username=cthun"
+      )
+      .then((res) => {
+        setNoteBooks(res.data);
+        getTopicByNoteBookId(res.data[0].id);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function getTopicByNoteBookId(notebookId) {
+    axios
+      .get(
+        "http://localhost:8080/api/es-study/topic/getListTopicDisplayResponseByNoteBookId?id=" +
+          notebookId
+      )
+      .then((res) => {
+        setCurrent(notebookId);
+        setListTopic(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  useEffect(() => {
+    getNoteBooks();
+  }, []);
+
   return (
     <Row justify={"center"} className="bg-gg h-100vh_m_66">
       {modalContext}
@@ -200,7 +231,7 @@ const MyNote = () => {
         footer={null}
         width={1000}
         title={
-          "Khởi tạo thuộc tính cho danh sách lưu trữ " + tabs[tabCurrent]?.title
+          "Khởi tạo thuộc tính cho danh sách lưu trữ " + tabs[tabCurrent]?.name
         }
       >
         <Title level={5}>Bảng thuộc tính</Title>
@@ -277,7 +308,7 @@ const MyNote = () => {
             </Link>
           </Col>
           <Col span={24}>
-            <Table>
+            <Table scroll={{ x: 1000 }}>
               <Table.Column title="#"></Table.Column>
               {attributes &&
                 attributes.map((item) => {
@@ -346,9 +377,11 @@ const MyNote = () => {
           </div>
           <Col span={20}>
             <Tabs
-              defaultActiveKey="1"
+              defaultActiveKey={2}
               onChange={(e) => {
-                setCurrent(e);
+                if (!isNaN(e)) {
+                  getTopicByNoteBookId(e);
+                }
               }}
             >
               <TabPane
@@ -416,20 +449,20 @@ const MyNote = () => {
                   )}
                 </Row>
               </TabPane>
-              {tabs &&
-                tabs.map((tab, index) => {
+              {noteBooks &&
+                noteBooks.map((tab, index) => {
                   return (
                     <TabPane
                       tab={
                         <>
-                          <Link>{tab.title} </Link>
+                          <Link>{tab.name} </Link>
                           <Link className="buttonDanger">
                             <DeleteFilled />
                           </Link>
                         </>
                       }
                       closable={true}
-                      key={index}
+                      key={tab.id}
                     >
                       <div>
                         <Input
@@ -439,45 +472,48 @@ const MyNote = () => {
                         />
                       </div>
                       <List itemLayout="horizontal">
-                        {tab?.data?.map((item, index) => {
-                          return (
-                            <List.Item
-                              className="buttonGrayTranset"
-                              onClick={() => {
-                                navigate("/my-note/list-store/data/id");
-                              }}
-                            >
-                              <List.Item.Meta
-                                className="p-16"
-                                avatar={
-                                  <Avatar
-                                    size={100}
-                                    src={
-                                      "https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp"
-                                    }
-                                  />
-                                }
-                                title={<span>{item.title}</span>}
-                                description={
-                                  <div>
-                                    Mô tả: {item.description}
-                                    <div className="fac mtb-16">
-                                      <span className="fac me-8">
-                                        <Visibility /> 123
-                                      </span>
-                                      <span className="fac me-8">
-                                        <Reply
-                                          style={{ transform: "scaleX(-1)" }}
-                                        />{" "}
-                                        123
-                                      </span>
+                        {listTopic &&
+                          listTopic.map((item, index) => {
+                            return (
+                              <List.Item
+                                className="buttonGrayTranset"
+                                onClick={() => {
+                                  navigate(
+                                    `/my-note/list-store/${tabCurrent}/${item.id}`
+                                  );
+                                }}
+                              >
+                                <List.Item.Meta
+                                  className="p-16"
+                                  avatar={
+                                    <Avatar
+                                      size={100}
+                                      src={
+                                        "https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp"
+                                      }
+                                    />
+                                  }
+                                  title={<span>{item.name}</span>}
+                                  description={
+                                    <div>
+                                      Mô tả: {item.description}
+                                      <div className="fac mtb-16">
+                                        <span className="fac me-8">
+                                          <Visibility /> {item.view}
+                                        </span>
+                                        <span className="fac me-8">
+                                          <Reply
+                                            style={{ transform: "scaleX(-1)" }}
+                                          />{" "}
+                                          {item.share}
+                                        </span>
+                                      </div>
                                     </div>
-                                  </div>
-                                }
-                              />
-                            </List.Item>
-                          );
-                        })}
+                                  }
+                                />
+                              </List.Item>
+                            );
+                          })}
                       </List>
                       <List.Item>
                         <List.Item.Meta

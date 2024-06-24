@@ -32,4 +32,7 @@ public class Topic extends BaseEntity {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "description")
+    private String description;
+
 }

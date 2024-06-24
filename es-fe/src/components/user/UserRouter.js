@@ -24,7 +24,10 @@ const UserRouter = () => {
           <Route path="my-note">
             <Route index element={<MyNote />} />
             <Route path="create-list/id" element={<CreateList />} />
-            <Route path="list-store/data/id" element={<ListData />} />
+            <Route
+              path="list-store/:noteBookId/:topicId"
+              element={<ListData />}
+            />
           </Route>
           <Route path="/community">
             <Route index element={<Community />} />
