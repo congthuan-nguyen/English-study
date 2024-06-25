@@ -1,7 +1,6 @@
 package es_study.es_be.repositoy;
 
 import es_study.es_be.model.NoteBookAttribute;
-import es_study.es_be.response.NoteBook.NoteBookDisplayResponse;
 import es_study.es_be.response.NoteBookAttribute.NoteBookAttributeDisplayResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

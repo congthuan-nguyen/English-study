@@ -6,6 +6,8 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
@@ -19,9 +21,11 @@ public abstract class BaseEntity {
 
     @Column(name = "createdAt")
     @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
     private LocalDateTime createdAt;
 
     @Column(name = "createdBy")
+    @CreatedBy
     private String createdBy;
 
     @Column(name = "updatedAt")

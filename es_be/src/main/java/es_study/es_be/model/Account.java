@@ -2,6 +2,7 @@ package es_study.es_be.model;
 
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import lombok.Setter;
 @Data
 @Getter
 @Setter
+@Builder
 public class Account extends BaseEntity {
     @Id
     @Column(name = "username", length = 20)

@@ -43,12 +43,6 @@ const MyNote = () => {
   const [tabCurrent, setCurrent] = useState(0);
   const [api, contextHolder] = notification.useNotification();
   const [modal, modalContext] = Modal.useModal();
-  const noteBook = {
-    id: null,
-    name: null,
-    initialization: false,
-    data: [],
-  };
   const [listTopic, setListTopic] = useState([]);
   const [noteBooks, setNoteBooks] = useState([]);
 
@@ -153,7 +147,13 @@ const MyNote = () => {
     setAttributes(attributesCopy);
   }
 
-  function addListStore() {
+  function initializationAttributes(index) {
+    var tabsCoppy = [...tabs];
+    tabsCoppy[index].initialization = true;
+    setTabs(tabsCoppy);
+  }
+
+  function createNoteBook() {
     modal.confirm({
       title: "Thông báo xác nhận!",
       content: "Xác nhận thêm danh sách lưu trữ mới!",
@@ -161,30 +161,24 @@ const MyNote = () => {
       cancelText: "Hủy",
       okText: "Xác nhận",
       onOk: () => {
+        console.log(listStore);
         setLoading(true);
-        setTimeout(() => {
-          setLoading(false);
-          setSuccess(true);
-          var listStoreCoppy = {
-            id: generateUniqueId(),
-            title: listStore,
-            initialization: false,
-            data: [],
-          };
-          var tabsCoppy = [...tabs];
-          tabsCoppy.push(listStoreCoppy);
-          setTabs(tabsCoppy);
-          setCurrent(tabsCoppy.length - 1);
-          setListStore("");
-        }, 2000);
+        axios
+          .post("http://localhost:8080/api/es-study/notebook/createNoteBook", {
+            id: null,
+            name: listStore,
+            username: "cthun",
+          })
+          .then((res) => {
+            setLoading(false);
+            setSuccess(true);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        setTimeout(() => {}, 2000);
       },
     });
-  }
-
-  function initializationAttributes(index) {
-    var tabsCoppy = [...tabs];
-    tabsCoppy[index].initialization = true;
-    setTabs(tabsCoppy);
   }
 
   function getNoteBooks() {
@@ -438,7 +432,7 @@ const MyNote = () => {
                         <div className="mtb-8 fjc">
                           <Button
                             onClick={() => {
-                              addListStore();
+                              createNoteBook();
                             }}
                           >
                             Thêm mới
