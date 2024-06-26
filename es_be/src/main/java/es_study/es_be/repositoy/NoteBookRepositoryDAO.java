@@ -14,4 +14,6 @@ public interface NoteBookRepositoryDAO extends JpaRepository<NoteBook, Long> {
             "left join NoteBookAttribute na on n.id = na.noteBook.id " +
             "group by id, name")
     List<NoteBookDisplayResponse> getNoteBooksDisplayByUsername(String username);
+
+    Boolean existsNoteBookByName(String name);
 }

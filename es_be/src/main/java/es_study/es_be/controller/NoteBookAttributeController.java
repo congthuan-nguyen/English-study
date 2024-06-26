@@ -1,13 +1,10 @@
 package es_study.es_be.controller;
 
-import es_study.es_be.model.NoteBookAttribute;
-import es_study.es_be.response.NoteBook.NoteBookDisplayResponse;
-import es_study.es_be.response.NoteBookAttribute.NoteBookAttributeDisplayResponse;
 import es_study.es_be.service.itf.NoteBookAttributeServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -22,7 +19,7 @@ public class NoteBookAttributeController {
     }
 
     @GetMapping(path = "/findAllByNoteBookId")
-    public List<NoteBookAttributeDisplayResponse> findAllByNoteBookId(@RequestParam Long noteBookId){
-        return service.findAllByNoteBookId(noteBookId);
+    public ResponseEntity<?> findAllByNoteBookId(@RequestParam Long noteBookId){
+        return ResponseEntity.ok(service.findAllByNoteBookId(noteBookId));
     }
 }

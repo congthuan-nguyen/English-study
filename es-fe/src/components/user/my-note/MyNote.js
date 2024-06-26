@@ -94,18 +94,20 @@ const MyNote = () => {
       id: "1",
       name: "example 1",
       type: "1",
+      width: 25,
     },
     {
       id: "2",
       name: "example 2",
       type: "2",
+      width: 25,
     },
   ]);
 
   const [attribute, setAttribute] = useState({
     id: "",
     name: "",
-
+    width: 25,
     type: "1",
   });
 
@@ -115,7 +117,6 @@ const MyNote = () => {
     const currentTime = Math.floor(Date.now() / 1000);
     const randomPart = Math.floor(Math.random() * 10000);
     const uniqueId = `${currentTime}-${randomPart}`;
-
     return uniqueId;
   }
 
@@ -129,6 +130,7 @@ const MyNote = () => {
       var attributeCopy = { ...attribute };
       attributeCopy.id = attributes.length + 1;
       attributeCopy.name = "example " + (attributes.length + 1);
+      attributeCopy.width = 25;
       var attributesCopy = [...attributes];
       attributesCopy.push(attributeCopy);
       setAttributes(attributesCopy);
@@ -161,7 +163,6 @@ const MyNote = () => {
       cancelText: "Hủy",
       okText: "Xác nhận",
       onOk: () => {
-        console.log(listStore);
         setLoading(true);
         axios
           .post("http://localhost:8080/api/es-study/notebook/createNoteBook", {
@@ -172,11 +173,16 @@ const MyNote = () => {
           .then((res) => {
             setLoading(false);
             setSuccess(true);
+            setRender(Math.random());
           })
           .catch((err) => {
+            api.error({
+              message: "Lỗi",
+              description: err?.response?.data?.message,
+            });
             console.log(err);
+            setLoading(false);
           });
-        setTimeout(() => {}, 2000);
       },
     });
   }
@@ -188,21 +194,21 @@ const MyNote = () => {
       )
       .then((res) => {
         setNoteBooks(res.data);
-        getTopicByNoteBookId(res.data[0].id);
+        getTopicByNoteBook(res.data[0]);
       })
       .catch((err) => {
         console.log(err);
       });
   }
 
-  function getTopicByNoteBookId(notebookId) {
+  function getTopicByNoteBook(notebook) {
     axios
       .get(
         "http://localhost:8080/api/es-study/topic/getListTopicDisplayResponseByNoteBookId?id=" +
-          notebookId
+          notebook.id
       )
       .then((res) => {
-        setCurrent(notebookId);
+        setCurrent(notebook);
         setListTopic(res.data);
       })
       .catch((err) => {
@@ -212,7 +218,7 @@ const MyNote = () => {
 
   useEffect(() => {
     getNoteBooks();
-  }, []);
+  }, [render]);
 
   return (
     <Row justify={"center"} className="bg-gg h-100vh_m_66">
@@ -224,9 +230,7 @@ const MyNote = () => {
         centered
         footer={null}
         width={1000}
-        title={
-          "Khởi tạo thuộc tính cho danh sách lưu trữ " + tabs[tabCurrent]?.name
-        }
+        title={"Khởi tạo thuộc tính cho danh sách lưu trữ " + tabCurrent?.name}
       >
         <Title level={5}>Bảng thuộc tính</Title>
         <Row>
@@ -237,8 +241,9 @@ const MyNote = () => {
                   return (
                     <Col span={24} key={item.id} className="mtb-8">
                       <Row>
-                        <Col span={18}>
+                        <Col span={13}>
                           <div className="me-8">
+                            <span>Tên thuộc tính</span>
                             <Input
                               placeholder="Attribute name"
                               onChange={(e) => {
@@ -249,6 +254,19 @@ const MyNote = () => {
                           </div>
                         </Col>
                         <Col span={5}>
+                          <div className="me-8">
+                            <span>Độ rộng</span>
+                            <Input
+                              placeholder="width"
+                              onChange={(e) => {
+                                updateAttribute(index, "width", e.target.value);
+                              }}
+                              value={item.width}
+                            />
+                          </div>
+                        </Col>
+                        <Col span={5}>
+                          <span>Kiểu thuộc tính</span>
                           <Select
                             value={item.type}
                             onChange={(e) => {
@@ -302,11 +320,16 @@ const MyNote = () => {
             </Link>
           </Col>
           <Col span={24}>
-            <Table scroll={{ x: 1000 }}>
+            <Table>
               <Table.Column title="#"></Table.Column>
               {attributes &&
                 attributes.map((item) => {
-                  return <Table.Column title={item.name}></Table.Column>;
+                  return (
+                    <Table.Column
+                      width={item.width + "%"}
+                      title={item.name}
+                    ></Table.Column>
+                  );
                 })}
             </Table>
             <div className="mtb-8 fjc">
@@ -374,7 +397,7 @@ const MyNote = () => {
               defaultActiveKey={2}
               onChange={(e) => {
                 if (!isNaN(e)) {
-                  getTopicByNoteBookId(e);
+                  getTopicByNoteBook(noteBooks[e]);
                 }
               }}
             >
@@ -456,7 +479,7 @@ const MyNote = () => {
                         </>
                       }
                       closable={true}
-                      key={tab.id}
+                      key={index}
                     >
                       <div>
                         <Input
@@ -473,7 +496,7 @@ const MyNote = () => {
                                 className="buttonGrayTranset"
                                 onClick={() => {
                                   navigate(
-                                    `/my-note/list-store/${tabCurrent}/${item.id}`
+                                    `/my-note/list-store/${tabCurrent.id}/${item.id}`
                                   );
                                 }}
                               >

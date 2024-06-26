@@ -1,5 +1,6 @@
 package es_study.es_be.service.impl;
 
+import es_study.es_be.Exception.CustomException;
 import es_study.es_be.model.NoteBook;
 import es_study.es_be.repositoy.NoteBookRepositoryDAO;
 import es_study.es_be.response.NoteBook.NoteBookDisplayResponse;
@@ -21,6 +22,10 @@ public class NoteBookServiceImpl implements NoteBookServiceInterface {
 
     @Override
     public NoteBook create(NoteBook noteBook) {
+        Boolean isExist = repo.existsNoteBookByName(noteBook.getName());
+        if(isExist){
+            throw new CustomException(100, "sổ tay");
+        }
         return repo.save(noteBook);
     }
 
