@@ -1,4 +1,4 @@
-package es_study.es_be.request;
+package es_study.es_be.request.NoteBook;
 
 import es_study.es_be.model.Account;
 import es_study.es_be.model.NoteBook;

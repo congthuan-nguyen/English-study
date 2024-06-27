@@ -1,9 +1,11 @@
 package es_study.es_be.controller;
 
+import es_study.es_be.request.Attribute.AttributeInitializationRequest;
 import es_study.es_be.service.itf.NoteBookAttributeServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 
 @RestController
@@ -21,5 +23,10 @@ public class NoteBookAttributeController {
     @GetMapping(path = "/findAllByNoteBookId")
     public ResponseEntity<?> findAllByNoteBookId(@RequestParam Long noteBookId){
         return ResponseEntity.ok(service.findAllByNoteBookId(noteBookId));
+    }
+
+    @PostMapping(path = "/initializationNoteBookAttribute")
+    public ResponseEntity<?> initializationNoteBookAttribute(@RequestBody List<AttributeInitializationRequest> attributes){
+
     }
 }

@@ -1,7 +1,7 @@
 package es_study.es_be.controller;
 
 import es_study.es_be.model.NoteBook;
-import es_study.es_be.request.NoteBookCreateRequest;
+import es_study.es_be.request.NoteBook.NoteBookCreateRequest;
 import es_study.es_be.response.NoteBook.NoteBookDisplayResponse;
 import es_study.es_be.service.itf.NoteBookServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;

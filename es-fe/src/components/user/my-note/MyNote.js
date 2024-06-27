@@ -7,6 +7,7 @@ import {
 } from "@ant-design/icons";
 import {
   AccessAlarm,
+  AudioFile,
   Delete,
   DrawOutlined,
   PlayCircleFilledOutlined,
@@ -20,11 +21,8 @@ import {
   List,
   Modal,
   Row,
-  Select,
   Tabs,
   notification,
-  Popconfirm,
-  Table,
   Result,
   Spin,
   Avatar,
@@ -34,6 +32,7 @@ import Title from "antd/es/typography/Title";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import InitializationAttribute from "./InitializationAttribute";
 
 const MyNote = () => {
   const [render, setRender] = useState(0);
@@ -45,115 +44,12 @@ const MyNote = () => {
   const [modal, modalContext] = Modal.useModal();
   const [listTopic, setListTopic] = useState([]);
   const [noteBooks, setNoteBooks] = useState([]);
-
-  const [tabs, setTabs] = useState([
-    {
-      id: 1,
-      name: "Từ vựng",
-      initialization: true,
-      data: [
-        {
-          id: 1,
-          title: "Chủ đề thể thao",
-          description: "Các từ mới liên quan đến chủ đề thể thao",
-        },
-        {
-          id: 2,
-          title: "Chủ đề kinh doanh",
-          description: "Các từ mới liên quan đến chủ đề kinh doanh",
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: "Ngữ pháp",
-      initialization: true,
-
-      data: [],
-    },
-  ]);
+  const [types, setTypes] = useState([]);
   const [functionCurrent, setFunctionCurrent] = useState("alarm");
   const [modalAddListNote, setModalAddList] = useState(false);
-  const [modalAddNote, setModalAddNote] = useState(false);
-  const [types, setTypes] = useState([
-    {
-      id: "1",
-      name: "text",
-    },
-    {
-      id: "2",
-      name: "link",
-    },
-    {
-      id: "3",
-      name: "audio",
-    },
-  ]);
-  const [attributes, setAttributes] = useState([
-    {
-      id: "1",
-      name: "example 1",
-      type: "1",
-      width: 25,
-    },
-    {
-      id: "2",
-      name: "example 2",
-      type: "2",
-      width: 25,
-    },
-  ]);
-
-  const [attribute, setAttribute] = useState({
-    id: "",
-    name: "",
-    width: 25,
-    type: "1",
-  });
+  const [openModalInitialization, setOpenModalInitialization] = useState(false);
 
   const [listStore, setListStore] = useState("");
-
-  function generateUniqueId() {
-    const currentTime = Math.floor(Date.now() / 1000);
-    const randomPart = Math.floor(Math.random() * 10000);
-    const uniqueId = `${currentTime}-${randomPart}`;
-    return uniqueId;
-  }
-
-  function addAttribute() {
-    if (attributes.length >= 10) {
-      notification.warning({
-        message: <Title level={5}>Cảnh báo</Title>,
-        description: "Thêm tối đa 10 thuộc tính",
-      });
-    } else {
-      var attributeCopy = { ...attribute };
-      attributeCopy.id = attributes.length + 1;
-      attributeCopy.name = "example " + (attributes.length + 1);
-      attributeCopy.width = 25;
-      var attributesCopy = [...attributes];
-      attributesCopy.push(attributeCopy);
-      setAttributes(attributesCopy);
-    }
-  }
-
-  function updateAttribute(index, name, value) {
-    var attributesCopy = [...attributes];
-    attributesCopy[index][name] = value;
-    setAttributes(attributesCopy);
-  }
-
-  function deleteAttribute(index) {
-    var attributesCopy = [...attributes];
-    attributesCopy.splice(index, 1);
-    setAttributes(attributesCopy);
-  }
-
-  function initializationAttributes(index) {
-    var tabsCoppy = [...tabs];
-    tabsCoppy[index].initialization = true;
-    setTabs(tabsCoppy);
-  }
 
   function createNoteBook() {
     modal.confirm({
@@ -201,6 +97,17 @@ const MyNote = () => {
       });
   }
 
+  function getAllAttributeTypes() {
+    axios
+      .get("http://localhost:8080/api/es-study/attribute_type/all")
+      .then((res) => {
+        setTypes(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   function getTopicByNoteBook(notebook) {
     axios
       .get(
@@ -218,132 +125,19 @@ const MyNote = () => {
 
   useEffect(() => {
     getNoteBooks();
+    getAllAttributeTypes();
   }, [render]);
 
   return (
     <Row justify={"center"} className="bg-gg h-100vh_m_66">
       {modalContext}
       {contextHolder}
-      <Modal
-        open={modalAddNote}
-        onCancel={() => setModalAddNote(false)}
-        centered
-        footer={null}
-        width={1000}
-        title={"Khởi tạo thuộc tính cho danh sách lưu trữ " + tabCurrent?.name}
-      >
-        <Title level={5}>Bảng thuộc tính</Title>
-        <Row>
-          <Col span={24} className=" mh-5ip">
-            <Row>
-              {attributes &&
-                attributes.map((item, index) => {
-                  return (
-                    <Col span={24} key={item.id} className="mtb-8">
-                      <Row>
-                        <Col span={13}>
-                          <div className="me-8">
-                            <span>Tên thuộc tính</span>
-                            <Input
-                              placeholder="Attribute name"
-                              onChange={(e) => {
-                                updateAttribute(index, "name", e.target.value);
-                              }}
-                              value={item.name}
-                            />
-                          </div>
-                        </Col>
-                        <Col span={5}>
-                          <div className="me-8">
-                            <span>Độ rộng</span>
-                            <Input
-                              placeholder="width"
-                              onChange={(e) => {
-                                updateAttribute(index, "width", e.target.value);
-                              }}
-                              value={item.width}
-                            />
-                          </div>
-                        </Col>
-                        <Col span={5}>
-                          <span>Kiểu thuộc tính</span>
-                          <Select
-                            value={item.type}
-                            onChange={(e) => {
-                              updateAttribute(index, "type", e);
-                            }}
-                            style={{ width: "100%" }}
-                          >
-                            {types &&
-                              types.map((type) => {
-                                return (
-                                  <Select.Option key={type.id}>
-                                    {type.name}
-                                  </Select.Option>
-                                );
-                              })}
-                          </Select>
-                        </Col>
-                        <Col span={1}>
-                          <Popconfirm
-                            title="Cảnh báo"
-                            description="Xóa thông tin thuôc tính?"
-                            placement="right"
-                            onConfirm={() => {
-                              deleteAttribute(index);
-                            }}
-                            onOpenChange={() => console.log("open change")}
-                          >
-                            <div className="fajc">
-                              <CloseOutlined
-                                onClick={() => {}}
-                                className="buttonDanger"
-                              />
-                            </div>
-                          </Popconfirm>
-                        </Col>
-                      </Row>
-                    </Col>
-                  );
-                })}
-            </Row>
-          </Col>
-          <Col span={24} className="mtb-8 fjc">
-            <Link
-              to={""}
-              className="buttonGreen"
-              onClick={() => {
-                addAttribute();
-              }}
-            >
-              <PlusCircleOutlined />
-            </Link>
-          </Col>
-          <Col span={24}>
-            <Table>
-              <Table.Column title="#"></Table.Column>
-              {attributes &&
-                attributes.map((item) => {
-                  return (
-                    <Table.Column
-                      width={item.width + "%"}
-                      title={item.name}
-                    ></Table.Column>
-                  );
-                })}
-            </Table>
-            <div className="mtb-8 fjc">
-              <Button
-                onClick={() => {
-                  initializationAttributes(tabCurrent);
-                }}
-              >
-                Hoàn thành
-              </Button>
-            </div>
-          </Col>
-        </Row>
-      </Modal>
+      <InitializationAttribute
+        openModalInitialization={openModalInitialization}
+        setOpenModalInitialization={setOpenModalInitialization}
+        types={types}
+        tabCurrent={tabCurrent}
+      />
       <Modal
         open={modalAddListNote}
         onCancel={() => setModalAddList(false)}
@@ -430,7 +224,7 @@ const MyNote = () => {
                             className="ms-8"
                             key="buy"
                             onClick={() => {
-                              setModalAddNote(true);
+                              setOpenModalInitialization(true);
                             }}
                           >
                             Khởi tạo thuộc tính
@@ -541,7 +335,7 @@ const MyNote = () => {
                                   <Link
                                     className={`${"buttonGreenActive"}`}
                                     onClick={() => {
-                                      setModalAddNote(true);
+                                      setOpenModalInitialization(true);
                                     }}
                                   >
                                     Khởi tạo thuộc tính

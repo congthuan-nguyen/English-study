@@ -4,26 +4,25 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "NoteBookAttribute", schema = "user_es")
+@Table(name = "AttributeTypeDetail", schema = "user_es")
 @Data
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class NoteBookAttribute extends BaseEntity {
-
+public class AttributeTypeDetail extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "notebookid")
-    private NoteBook noteBook;
+    @JoinColumn(name = "attributeTypeId")
+    private AttributeType attributeType;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "attributeid")
+    @JoinColumn(name = "attributeId")
     private Attribute attribute;
 
 }
