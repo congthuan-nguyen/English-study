@@ -1,9 +1,7 @@
 package es_study.es_be.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import es_study.es_be.Const.ValueDefault;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedBy;
@@ -17,7 +15,7 @@ import java.time.LocalDateTime;
 public abstract class BaseEntity {
 
     @Column(name = "status", length = 50)
-    private String status;
+    private String status = ValueDefault.STATUS_ACTIVE;
 
     @Column(name = "createdAt")
     @Temporal(TemporalType.TIMESTAMP)
@@ -38,4 +36,14 @@ public abstract class BaseEntity {
     @Column(name = "deletedAt")
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime deletedAt;
+
+    @PrePersist
+    protected void prePersist() {
+        this.createdAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void preUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 }

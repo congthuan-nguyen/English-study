@@ -1,5 +1,6 @@
 package es_study.es_be.service.impl;
 
+import es_study.es_be.Const.ValueDefault;
 import es_study.es_be.model.Attribute;
 import es_study.es_be.repositoy.AttributeRepositoryDAO;
 import es_study.es_be.service.itf.AttributeServiceInterface;
@@ -15,6 +16,11 @@ public class AttributeServiceImpl implements AttributeServiceInterface {
     @Autowired
     public AttributeServiceImpl(AttributeRepositoryDAO repo) {
         this.repo = repo;
+    }
+
+    @Override
+    public Attribute create(Attribute attribute) {
+        return repo.save(attribute);
     }
 
     @Override

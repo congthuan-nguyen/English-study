@@ -27,6 +27,6 @@ public class NoteBookAttributeController {
 
     @PostMapping(path = "/initializationNoteBookAttribute")
     public ResponseEntity<?> initializationNoteBookAttribute(@RequestBody List<AttributeInitializationRequest> attributes){
-
+        return ResponseEntity.ok(service.initializationAttributes(attributes));
     }
 }
