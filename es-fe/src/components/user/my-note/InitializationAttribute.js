@@ -1,6 +1,7 @@
 import { CloseOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import { PlayCircleFilledOutlined } from "@mui/icons-material";
 import {
+  AutoComplete,
   Button,
   Col,
   Input,
@@ -12,25 +13,29 @@ import {
   notification,
 } from "antd";
 import Title from "antd/es/typography/Title";
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const InitializationAttribute = (props) => {
   const [attributes, setAttributes] = useState([
     {
-      id: "1",
-      name: "example 1",
-      type: "1",
+      id: "",
+      name: "Thuộc tính 1",
+      attributeTypeId: "1",
       width: 120,
+      noteBookId: props.tabCurrent?.id,
     },
     {
-      id: "2",
-      name: "example 2",
-      type: "2",
+      id: "",
+      name: "Thuộc tính 2",
+      attributeTypeId: "2",
       width: 120,
+      noteBookId: props.tabCurrent?.id,
     },
   ]);
-  const [dataExample, setDataExample] = useState([
+  const [relatedAttributes, setRelatedAttributes] = useState([]);
+  const dataExample = [
     {
       0: 1,
       1: generateUniqueId(),
@@ -44,13 +49,15 @@ const InitializationAttribute = (props) => {
       9: generateUniqueId(),
       10: generateUniqueId(),
     },
-  ]);
+  ];
 
-  const [attribute, setAttribute] = useState({
+  const attribute = {
     id: "",
     name: "",
-    type: "1",
-  });
+    attributeTypeId: "1",
+    width: 120,
+    noteBookId: props.tabCurrent?.id,
+  };
 
   function generateUniqueId() {
     const currentTime = Math.floor(Date.now() / 1000);
@@ -66,9 +73,6 @@ const InitializationAttribute = (props) => {
       });
     } else {
       var attributeCopy = { ...attribute };
-      attributeCopy.id = attributes.length + 1;
-      attributeCopy.name = "example " + (attributes.length + 1);
-      attributeCopy.width = 120;
       var attributesCopy = [...attributes];
       attributesCopy.push(attributeCopy);
       setAttributes(attributesCopy);
@@ -100,6 +104,29 @@ const InitializationAttribute = (props) => {
       );
     }
   }
+
+  function InitializationAttributes() {
+    axios
+      .post(
+        "http://localhost:8080/api/es-study/notebook_attribute/initializationNoteBookAttribute",
+        attributes
+      )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  useEffect(() => {
+    setAttributes((attributes) =>
+      attributes.map((element) => {
+        element.noteBookId = props.tabCurrent?.id;
+        return element;
+      })
+    );
+  }, [props.tabCurrent?.id]);
   return (
     <Modal
       open={props.openModalInitialization}
@@ -119,26 +146,32 @@ const InitializationAttribute = (props) => {
             {attributes &&
               attributes.map((item, index) => {
                 return (
-                  <Col span={24} key={item.id} className="mtb-8">
+                  <Col span={24} key={index} className="mtb-8">
                     <Row>
                       <Col span={18}>
                         <div className="me-8">
                           <span>Tên thuộc tính</span>
-                          <Input
-                            placeholder="Attribute name"
-                            onChange={(e) => {
-                              updateAttribute(index, "name", e.target.value);
+                          <AutoComplete
+                            options={relatedAttributes}
+                            style={{
+                              width: "100%",
                             }}
                             value={item.name}
+                            // onSelect={onSelect}
+                            // onSearch={(text) => setOptions([])}
+                            onChange={(e) => {
+                              updateAttribute(index, "name", e);
+                            }}
+                            placeholder="Nhập tên thuộc tính"
                           />
                         </div>
                       </Col>
                       <Col span={5}>
                         <span>Kiểu thuộc tính</span>
                         <Select
-                          value={item.type}
+                          value={item.attributeTypeId}
                           onChange={(e) => {
-                            updateAttribute(index, "type", e);
+                            updateAttribute(index, "attributeTypeId", e);
                           }}
                           style={{ width: "100%" }}
                         >
@@ -203,15 +236,21 @@ const InitializationAttribute = (props) => {
               attributes.map((item, index) => {
                 return (
                   <Table.Column
-                    dataIndex={item.id}
+                    dataIndex={index + 1}
                     title={item.name}
-                    render={(e) => returnDataTypee(item.type, e)}
+                    render={(e) => returnDataTypee(item.attributeTypeId, e)}
                   ></Table.Column>
                 );
               })}
           </Table>
           <div className="mtb-8 fjc">
-            <Button onClick={() => {}}>Hoàn thành</Button>
+            <Button
+              onClick={() => {
+                InitializationAttributes();
+              }}
+            >
+              Hoàn thành
+            </Button>
           </div>
         </Col>
       </Row>
