@@ -1,4 +1,4 @@
-package es_study.es_be.request.Attribute;
+package es_study.es_be.request.attribute;
 
 import es_study.es_be.model.*;
 import lombok.Getter;
@@ -12,6 +12,7 @@ public class AttributeInitializationRequest {
     private Long attributeTypeId;
     private Long noteBookId;
     private Integer width;
+    private Long copyFrom;
 
     public Attribute dto(){
         Attribute attribute = new Attribute(id, name);
@@ -28,7 +29,7 @@ public class AttributeInitializationRequest {
     public NoteBookAttribute dtoNoteBookAttribute(Long attributeId){
         NoteBookAttribute noteBookAttribute = NoteBookAttribute.builder().
                 attribute(Attribute.builder().id(attributeId).build()).
-                noteBook(NoteBook.builder().id(noteBookId).build()).build();
+                noteBook(NoteBook.builder().id(noteBookId).build()).copyFrom(copyFrom).build();
         return noteBookAttribute;
     }
 }

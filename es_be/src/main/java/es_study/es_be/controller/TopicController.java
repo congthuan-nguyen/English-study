@@ -1,6 +1,6 @@
 package es_study.es_be.controller;
 
-import es_study.es_be.response.Topic.TopicDisplayResponse;
+import es_study.es_be.response.topic.TopicDisplayResponse;
 import es_study.es_be.service.itf.TopicServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -54,7 +54,7 @@ const ListData = (props) => {
           noteBookId
       )
       .then((res) => {
-        setAttributes(res.data);
+        setAttributes(res.data.object);
       })
       .catch((err) => {
         console.log(err);

@@ -1,4 +1,4 @@
-package es_study.es_be.Exception;
+package es_study.es_be.exception;
 
 public class CustomException extends RuntimeException {
 
@@ -6,6 +6,10 @@ public class CustomException extends RuntimeException {
 
     public CustomException(int errorCode, String message) {
         super(message);
+        this.errorCode = errorCode;
+    }
+
+    public CustomException(int errorCode) {
         this.errorCode = errorCode;
     }
 

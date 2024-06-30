@@ -1,8 +1,8 @@
 package es_study.es_be.controller;
 
 import es_study.es_be.model.NoteBook;
-import es_study.es_be.request.NoteBook.NoteBookCreateRequest;
-import es_study.es_be.response.NoteBook.NoteBookDisplayResponse;
+import es_study.es_be.request.notebook.NoteBookCreateRequest;
+import es_study.es_be.response.notebook.NoteBookDisplayResponse;
 import es_study.es_be.service.itf.NoteBookServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +28,6 @@ public class NoteBookController {
     @PostMapping(path = "/createNoteBook")
     public NoteBook createNoteBook(@RequestBody NoteBookCreateRequest request){
         NoteBook noteBook = request.dto();
-        return service.create(noteBook);
+        return service.create(noteBook, "cthun");
     }
 }

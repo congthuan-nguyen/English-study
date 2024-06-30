@@ -1,8 +1,7 @@
-package es_study.es_be.Exception;
+package es_study.es_be.exception;
 
-import es_study.es_be.Message.ErrorMessage;
-import es_study.es_be.model.Error;
-import org.springframework.http.HttpStatus;
+import es_study.es_be.message.ErrorMessage;
+import es_study.es_be.model.notification.Error;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

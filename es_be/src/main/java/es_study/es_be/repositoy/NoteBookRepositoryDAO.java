@@ -1,7 +1,7 @@
 package es_study.es_be.repositoy;
 
 import es_study.es_be.model.NoteBook;
-import es_study.es_be.response.NoteBook.NoteBookDisplayResponse;
+import es_study.es_be.response.notebook.NoteBookDisplayResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -15,5 +15,5 @@ public interface NoteBookRepositoryDAO extends JpaRepository<NoteBook, Long> {
             "group by id, name")
     List<NoteBookDisplayResponse> getNoteBooksDisplayByUsername(String username);
 
-    Boolean existsNoteBookByName(String name);
+    Boolean existsNoteBookByNameAndAccount_Username(String name, String username);
 }

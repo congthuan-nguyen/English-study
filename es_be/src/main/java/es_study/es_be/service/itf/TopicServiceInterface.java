@@ -1,6 +1,6 @@
 package es_study.es_be.service.itf;
 
-import es_study.es_be.response.Topic.TopicDisplayResponse;
+import es_study.es_be.response.topic.TopicDisplayResponse;
 
 import java.util.List;
 

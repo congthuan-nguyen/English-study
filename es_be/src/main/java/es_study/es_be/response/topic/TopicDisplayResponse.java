@@ -1,4 +1,4 @@
-package es_study.es_be.response.Topic;
+package es_study.es_be.response.topic;
 
 public interface TopicDisplayResponse {
     Long getId();

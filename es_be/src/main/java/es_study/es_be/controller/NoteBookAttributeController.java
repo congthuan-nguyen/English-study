@@ -1,6 +1,6 @@
 package es_study.es_be.controller;
 
-import es_study.es_be.request.Attribute.AttributeInitializationRequest;
+import es_study.es_be.request.attribute.AttributeInitializationRequest;
 import es_study.es_be.service.itf.NoteBookAttributeServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

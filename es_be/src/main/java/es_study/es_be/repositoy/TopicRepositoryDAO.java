@@ -1,7 +1,7 @@
 package es_study.es_be.repositoy;
 
 import es_study.es_be.model.Topic;
-import es_study.es_be.response.Topic.TopicDisplayResponse;
+import es_study.es_be.response.topic.TopicDisplayResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

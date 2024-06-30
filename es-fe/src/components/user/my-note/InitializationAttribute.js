@@ -10,13 +10,14 @@ import {
   Row,
   Select,
   Table,
+  Tag,
   notification,
 } from "antd";
 import Title from "antd/es/typography/Title";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import lodash from "lodash";
 const InitializationAttribute = (props) => {
   const [attributes, setAttributes] = useState([
     {
@@ -25,6 +26,7 @@ const InitializationAttribute = (props) => {
       attributeTypeId: "1",
       width: 120,
       noteBookId: props.tabCurrent?.id,
+      copyFrom: null,
     },
     {
       id: "",
@@ -32,6 +34,7 @@ const InitializationAttribute = (props) => {
       attributeTypeId: "2",
       width: 120,
       noteBookId: props.tabCurrent?.id,
+      copyFrom: null,
     },
   ]);
   const [relatedAttributes, setRelatedAttributes] = useState([]);
@@ -57,6 +60,7 @@ const InitializationAttribute = (props) => {
     attributeTypeId: "1",
     width: 120,
     noteBookId: props.tabCurrent?.id,
+    copyFrom: null,
   };
 
   function generateUniqueId() {
@@ -119,6 +123,28 @@ const InitializationAttribute = (props) => {
       });
   }
 
+  function findAttributeByName(name) {
+    axios
+      .get(
+        "http://localhost:8080/api/es-study/attribute/findByName?name=" +
+          name +
+          "&username=cthun"
+      )
+      .then((res) => {
+        setRelatedAttributes(res.data.object);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  const debouncedSearch = useCallback(
+    lodash.debounce((text) => {
+      findAttributeByName(text);
+    }, 500),
+    []
+  );
+
   useEffect(() => {
     setAttributes((attributes) =>
       attributes.map((element) => {
@@ -150,20 +176,56 @@ const InitializationAttribute = (props) => {
                     <Row>
                       <Col span={18}>
                         <div className="me-8">
-                          <span>Tên thuộc tính</span>
+                          <span>
+                            Tên thuộc tính{" "}
+                            <Tag color="green">
+                              {item.copyFrom === null ? "Tạo mới" : "Sao chép"}
+                            </Tag>
+                          </span>
                           <AutoComplete
-                            options={relatedAttributes}
+                            // options={relatedAttributes}
                             style={{
                               width: "100%",
                             }}
+                            className="mt-8"
                             value={item.name}
-                            // onSelect={onSelect}
-                            // onSearch={(text) => setOptions([])}
+                            onSelect={(e) => {
+                              updateAttribute(
+                                index,
+                                "name",
+                                relatedAttributes[e].name
+                              );
+                              updateAttribute(
+                                index,
+                                "id",
+                                relatedAttributes[e].id
+                              );
+                              updateAttribute(
+                                index,
+                                "copyFrom",
+                                relatedAttributes[e].notebookId
+                              );
+                            }}
+                            onSearch={(text) => debouncedSearch(text)}
                             onChange={(e) => {
                               updateAttribute(index, "name", e);
                             }}
                             placeholder="Nhập tên thuộc tính"
-                          />
+                          >
+                            {relatedAttributes &&
+                              relatedAttributes.map((item, index) => {
+                                return (
+                                  <Select.Option key={item.id} value={index}>
+                                    <div className="fjb">
+                                      {item.name}
+                                      <Tag>
+                                        sao chép từ sổ tay {item.notebookName}
+                                      </Tag>
+                                    </div>
+                                  </Select.Option>
+                                );
+                              })}
+                          </AutoComplete>
                         </div>
                       </Col>
                       <Col span={5}>
@@ -173,6 +235,7 @@ const InitializationAttribute = (props) => {
                           onChange={(e) => {
                             updateAttribute(index, "attributeTypeId", e);
                           }}
+                          className="mt-8"
                           style={{ width: "100%" }}
                         >
                           {props.types &&

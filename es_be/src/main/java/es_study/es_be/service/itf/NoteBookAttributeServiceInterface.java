@@ -1,13 +1,11 @@
 package es_study.es_be.service.itf;
 
-import es_study.es_be.model.NoteBookAttribute;
-import es_study.es_be.request.Attribute.AttributeInitializationRequest;
-import es_study.es_be.response.NoteBook.NoteBookDisplayResponse;
-import es_study.es_be.response.NoteBookAttribute.NoteBookAttributeDisplayResponse;
+import es_study.es_be.model.notification.SuccessObject;
+import es_study.es_be.request.attribute.AttributeInitializationRequest;
 
 import java.util.List;
 
 public interface NoteBookAttributeServiceInterface {
-    List<NoteBookAttributeDisplayResponse> findAllByNoteBookId(Long noteBookId);
-    String initializationAttributes (List<AttributeInitializationRequest> requests);
+    SuccessObject<?> findAllByNoteBookId(Long noteBookId);
+    SuccessObject<?> initializationAttributes (List<AttributeInitializationRequest> requests);
 }

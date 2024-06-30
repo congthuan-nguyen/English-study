@@ -1,11 +1,13 @@
 package es_study.es_be.service.impl;
 
+import es_study.es_be.Const.SuccessCode;
+import es_study.es_be.message.SuccessMessage;
 import es_study.es_be.model.Attribute;
-import es_study.es_be.model.AttributeTypeDetail;
+import es_study.es_be.model.notification.SuccessObject;
 import es_study.es_be.repositoy.AttributeTypeDetailRepositoryDAO;
 import es_study.es_be.repositoy.NoteBookAttributeRepositoryDAO;
-import es_study.es_be.request.Attribute.AttributeInitializationRequest;
-import es_study.es_be.response.NoteBookAttribute.NoteBookAttributeDisplayResponse;
+import es_study.es_be.request.attribute.AttributeInitializationRequest;
+import es_study.es_be.response.notebook_attribute.NoteBookAttributeDisplayResponse;
 import es_study.es_be.service.itf.AttributeServiceInterface;
 import es_study.es_be.service.itf.NoteBookAttributeServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,23 +33,32 @@ public class NoteBookAttributeServiceImpl implements NoteBookAttributeServiceInt
     }
 
     @Override
-    public List<NoteBookAttributeDisplayResponse> findAllByNoteBookId(Long noteBookId)
+    public SuccessObject<?> findAllByNoteBookId(Long noteBookId)
     {
-        return repo.findAllByNoteBookId(noteBookId);
+        SuccessObject <List<NoteBookAttributeDisplayResponse>> successObject = new SuccessObject<>();
+        successObject.setSuccessMessage(SuccessMessage.getSuccessMessage(SuccessCode.SEARCH_SUCCESSFULLY));
+        successObject.setSuccessCode(SuccessCode.SEARCH_SUCCESSFULLY);
+        successObject.setObject(repo.findAllByNoteBookId(noteBookId));
+        return successObject;
     }
 
     @Override
-    public String initializationAttributes(List<AttributeInitializationRequest> requests)
+    public SuccessObject<?> initializationAttributes(List<AttributeInitializationRequest> requests)
     {
-        for(AttributeInitializationRequest request : requests){
-            System.out.println(request.getName()+ request.getNoteBookId() +"check");
+        for(AttributeInitializationRequest request : requests)
+        {
 
-            Attribute attribute = attributeService.create(request.dto());
+            Attribute attribute = null;
+
+            attribute = attributeService.create(request.dto());
 
             attributeTypeDetailRepo.save(request.dtoAttributeTypeDetail(attribute.getId()));
 
             repo.save(request.dtoNoteBookAttribute(attribute.getId()));
         }
-        return "";
+        SuccessObject<String> successObject = new SuccessObject<>(SuccessCode.CREATE_SUCCESSFULLY,
+                String.format(SuccessMessage.getSuccessMessage(SuccessCode.CREATE_SUCCESSFULLY), "thuộc tính"),
+                null);
+        return successObject;
     }
 }

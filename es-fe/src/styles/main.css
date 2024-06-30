@@ -442,6 +442,12 @@
   height: 100%;
 }
 
+.fjb {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+}
+
 .h100 {
   height: 100%;
 }

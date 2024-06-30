@@ -1,4 +1,4 @@
-package es_study.es_be.Message;
+package es_study.es_be.message;
 
 import lombok.Data;
 
@@ -22,5 +22,4 @@ public class ErrorMessage {
             return errorsMessage.get(001);
         }
     }
-
 }

@@ -26,4 +26,7 @@ public class NoteBookAttribute extends BaseEntity {
     @JoinColumn(name = "attributeid")
     private Attribute attribute;
 
+    @Column(name = "copyfrom")
+    private Long copyFrom;
+
 }
