@@ -21,4 +21,9 @@ public class AttributeController {
     public ResponseEntity<?> findByName(@RequestParam String name, @RequestParam String username){
         return ResponseEntity.ok(service.findAttributeByName(name, "cthun"));
     }
+
+    @GetMapping("/getAttributeExistByName")
+    public ResponseEntity<?> getAttributeExistByName(@RequestParam String name, @RequestParam String username){
+        return ResponseEntity.ok(service.getAttributeExistByName(name, "cthun"));
+    }
 }

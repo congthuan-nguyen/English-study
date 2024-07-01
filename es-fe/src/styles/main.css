@@ -214,6 +214,20 @@
   cursor: pointer;
 }
 
+.buttonSave {
+  color: white;
+  background-color: #819171;
+  font-weight: 500;
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.buttonSave:hover {
+  opacity: 0.7;
+}
+
 .buttonDanger:hover {
   color: white;
   border-radius: 8px;

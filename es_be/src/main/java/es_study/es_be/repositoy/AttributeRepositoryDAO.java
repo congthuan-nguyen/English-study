@@ -16,4 +16,10 @@ public interface AttributeRepositoryDAO extends JpaRepository<Attribute, Long> {
             "left join NoteBookAttribute na on na.attribute.id = a.id " +
             "where lower(a.name) like :name and na.noteBook.account.username = :username and na.copyFrom is null")
     List<AttributeResponse> findAttributesByName(@Param("name") String name, @Param("username") String username);
+
+    @Query("select a.id as id, a.name as name, na.noteBook.id as notebookId, na.noteBook.name as notebookName " +
+            "from Attribute a " +
+            "left join NoteBookAttribute na on na.attribute.id = a.id " +
+            "where lower(a.name) like :name and na.noteBook.account.username = :username and na.copyFrom is null ")
+    List<AttributeResponse> getAttributeExistByName(@Param("name") String name, @Param("username") String username);
 }

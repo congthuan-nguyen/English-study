@@ -19,6 +19,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import lodash from "lodash";
 const InitializationAttribute = (props) => {
+  const [render, setRender] = useState(null);
   const [attributes, setAttributes] = useState([
     {
       id: "",
@@ -138,6 +139,58 @@ const InitializationAttribute = (props) => {
       });
   }
 
+  function getAttributeExistByName(name) {
+    return axios
+      .get(
+        "http://localhost:8080/api/es-study/attribute/getAttributeExistByName",
+        {
+          params: {
+            name: name,
+            username: "cthun",
+          },
+        }
+      )
+      .then((res) => res.data)
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function onChangeNameAttribute(index, name) {
+    updateAttribute(index, "name", name);
+    updateAttribute(index, "copyFrom", null);
+    updateAttribute(index, "id", "");
+
+    debouncedGetAttributeExist(name, index);
+  }
+
+  const debouncedGetAttributeExist = useCallback(
+    lodash.debounce((name, index) => {
+      getAttributeExistByName(name)
+        .then((obj) => {
+          if (typeof obj === "object") {
+            updateAttribute(index, "id", obj.id);
+            updateAttribute(index, "copyFrom", obj.notebookId);
+          } else {
+            updateAttribute(index, "id", "");
+            updateAttribute(index, "copyFrom", null);
+            setRender(Math.random());
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }, 500),
+    []
+  );
+
+  function onSelectNameAttribute(index, indexAttribute) {
+    let indexReal = indexAttribute.substring(0, indexAttribute.indexOf("__"));
+    updateAttribute(index, "name", relatedAttributes[indexReal].name);
+    updateAttribute(index, "id", relatedAttributes[indexReal].id);
+    updateAttribute(index, "copyFrom", relatedAttributes[indexReal].notebookId);
+  }
+
   const debouncedSearch = useCallback(
     lodash.debounce((text) => {
       findAttributeByName(text);
@@ -153,6 +206,8 @@ const InitializationAttribute = (props) => {
       })
     );
   }, [props.tabCurrent?.id]);
+
+  useEffect(() => {}, [render]);
   return (
     <Modal
       open={props.openModalInitialization}
@@ -183,39 +238,29 @@ const InitializationAttribute = (props) => {
                             </Tag>
                           </span>
                           <AutoComplete
-                            // options={relatedAttributes}
                             style={{
                               width: "100%",
                             }}
                             className="mt-8"
                             value={item.name}
-                            onSelect={(e) => {
-                              updateAttribute(
-                                index,
-                                "name",
-                                relatedAttributes[e].name
-                              );
-                              updateAttribute(
-                                index,
-                                "id",
-                                relatedAttributes[e].id
-                              );
-                              updateAttribute(
-                                index,
-                                "copyFrom",
-                                relatedAttributes[e].notebookId
-                              );
-                            }}
                             onSearch={(text) => debouncedSearch(text)}
-                            onChange={(e) => {
-                              updateAttribute(index, "name", e);
+                            onChange={(name) => {
+                              if (!name.includes("__")) {
+                                onChangeNameAttribute(index, name);
+                              }
+                            }}
+                            onSelect={(e) => {
+                              onSelectNameAttribute(index, e);
                             }}
                             placeholder="Nhập tên thuộc tính"
                           >
                             {relatedAttributes &&
                               relatedAttributes.map((item, index) => {
                                 return (
-                                  <Select.Option key={item.id} value={index}>
+                                  <Select.Option
+                                    key={item.id}
+                                    value={index + "__"}
+                                  >
                                     <div className="fjb">
                                       {item.name}
                                       <Tag>
@@ -228,7 +273,7 @@ const InitializationAttribute = (props) => {
                           </AutoComplete>
                         </div>
                       </Col>
-                      <Col span={5}>
+                      <Col span={4}>
                         <span>Kiểu thuộc tính</span>
                         <Select
                           value={item.attributeTypeId}
@@ -248,7 +293,10 @@ const InitializationAttribute = (props) => {
                             })}
                         </Select>
                       </Col>
-                      <Col span={1}>
+                      <Col span={2}>
+                        <div>
+                          <span>Thao tác</span>
+                        </div>
                         <Popconfirm
                           title="Cảnh báo"
                           description="Xóa thông tin thuôc tính?"
@@ -258,7 +306,7 @@ const InitializationAttribute = (props) => {
                           }}
                           onOpenChange={() => console.log("open change")}
                         >
-                          <div className="fajc">
+                          <div className="ms-8 mt-8">
                             <CloseOutlined
                               onClick={() => {}}
                               className="buttonDanger"
@@ -289,12 +337,12 @@ const InitializationAttribute = (props) => {
             dataSource={dataExample}
             virtual
             scroll={{
-              x: 2000,
+              x: 200 * attributes.length,
               y: 400,
             }}
             bordered
           >
-            <Table.Column title="#" dataIndex={0}></Table.Column>
+            <Table.Column width={48} title="#" dataIndex={0}></Table.Column>
             {attributes &&
               attributes.map((item, index) => {
                 return (

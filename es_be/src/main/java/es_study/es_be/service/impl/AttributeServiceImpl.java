@@ -39,4 +39,19 @@ public class AttributeServiceImpl implements AttributeServiceInterface {
 
         return successObject;
     }
+
+    @Override
+    public SuccessObject<?> getAttributeExistByName(String name, String username) {
+        try{
+            AttributeResponse response = repo.getAttributeExistByName(name.toLowerCase(), username).get(0);
+            SuccessObject<AttributeResponse> successObject = new SuccessObject<>(SuccessCode.SEARCH_SUCCESSFULLY,
+                    "", response);
+            return successObject;
+        } catch (Exception e){
+            System.out.println(e);
+            return null;
+        }
+
+    }
+
 }
