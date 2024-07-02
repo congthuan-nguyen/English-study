@@ -20,7 +20,9 @@ import { Link } from "react-router-dom";
 import lodash from "lodash";
 const InitializationAttribute = (props) => {
   const [render, setRender] = useState(null);
-  const [attributes, setAttributes] = useState([
+  const [modal, modalContext] = Modal.useModal();
+  const [loading, setLoading] = useState(false);
+  const dataAttributes = [
     {
       id: "",
       name: "Thuộc tính 1",
@@ -37,7 +39,8 @@ const InitializationAttribute = (props) => {
       noteBookId: props.tabCurrent?.id,
       copyFrom: null,
     },
-  ]);
+  ];
+  const [attributes, setAttributes] = useState([]);
   const [relatedAttributes, setRelatedAttributes] = useState([]);
   const dataExample = [
     {
@@ -111,17 +114,35 @@ const InitializationAttribute = (props) => {
   }
 
   function InitializationAttributes() {
-    axios
-      .post(
-        "http://localhost:8080/api/es-study/notebook_attribute/initializationNoteBookAttribute",
-        attributes
-      )
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    modal.confirm({
+      title: "Thông báo xác nhận!",
+      content: "Xác nhận khởi tạo tuộc tính",
+      centered: true,
+      cancelText: "Hủy",
+      okText: "Xác nhận",
+      onOk: () => {
+        setLoading(true);
+        axios
+          .post(
+            "http://localhost:8080/api/es-study/notebook_attribute/initializationNoteBookAttribute",
+            attributes
+          )
+          .then((res) => {
+            console.log(res.data);
+            notification.success({
+              message: "Thông báo",
+              description: res.data.successMessage,
+            });
+            props.setRenderMyNote(Math.random());
+            props.setOpenModalInitialization(false);
+            setLoading(false);
+          })
+          .catch((err) => {
+            setLoading(false);
+            console.log(err);
+          });
+      },
+    });
   }
 
   function findAttributeByName(name) {
@@ -150,7 +171,7 @@ const InitializationAttribute = (props) => {
           },
         }
       )
-      .then((res) => res.data)
+      .then((res) => res.data.object)
       .catch((err) => {
         console.log(err);
       });
@@ -199,13 +220,14 @@ const InitializationAttribute = (props) => {
   );
 
   useEffect(() => {
-    setAttributes((attributes) =>
-      attributes.map((element) => {
+    const attributesData = [
+      ...dataAttributes.map((element) => {
         element.noteBookId = props.tabCurrent?.id;
         return element;
-      })
-    );
-  }, [props.tabCurrent?.id]);
+      }),
+    ];
+    setAttributes(attributesData);
+  }, [props.tabCurrent?.id, render]);
 
   useEffect(() => {}, [render]);
   return (
@@ -220,6 +242,7 @@ const InitializationAttribute = (props) => {
         "Khởi tạo thuộc tính cho danh sách lưu trữ " + props.tabCurrent?.name
       }
     >
+      {modalContext}
       <Title level={5}>Bảng thuộc tính</Title>
       <Row>
         <Col span={24} className=" mh-5ip">
@@ -233,8 +256,28 @@ const InitializationAttribute = (props) => {
                         <div className="me-8">
                           <span>
                             Tên thuộc tính{" "}
-                            <Tag color="green">
-                              {item.copyFrom === null ? "Tạo mới" : "Sao chép"}
+                            <Tag
+                              color={
+                                attributes.some((e, eindex) => {
+                                  if (index !== eindex) {
+                                    return e.name === item.name;
+                                  }
+                                  return false;
+                                })
+                                  ? "red"
+                                  : "green"
+                              }
+                            >
+                              {item.copyFrom === null
+                                ? "Tạo mới"
+                                : attributes.some((e, eindex) => {
+                                    if (index !== eindex) {
+                                      return e.name === item.name;
+                                    }
+                                    return false;
+                                  })
+                                ? "Trùng thuộc tính"
+                                : "Sao chép"}
                             </Tag>
                           </span>
                           <AutoComplete
@@ -359,6 +402,7 @@ const InitializationAttribute = (props) => {
               onClick={() => {
                 InitializationAttributes();
               }}
+              loading={loading}
             >
               Hoàn thành
             </Button>

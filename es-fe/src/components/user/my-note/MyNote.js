@@ -137,6 +137,7 @@ const MyNote = () => {
         setOpenModalInitialization={setOpenModalInitialization}
         types={types}
         tabCurrent={tabCurrent}
+        setRenderMyNote={setRender}
       />
       <Modal
         open={modalAddListNote}
