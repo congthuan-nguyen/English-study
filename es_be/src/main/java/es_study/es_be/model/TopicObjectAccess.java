@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class TopicAccessObject extends BaseEntity {
+public class TopicObjectAccess extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,14 +19,15 @@ public class TopicAccessObject extends BaseEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "notebookid")
-    private NoteBook noteBook;
+    @JoinColumn(name = "topicId")
+    private Topic topic;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "attributeid")
-    private Attribute attribute;
+    @JoinColumn(name = "objectAccessId")
+    private ObjectAccess objectAccess;
 
-    @Column(name = "copyfrom")
-    private Long copyFrom;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "accountId")
+    private Account account;
 
 }

@@ -5,16 +5,59 @@ import Title from "antd/es/typography/Title";
 import React, { useEffect, useState } from "react";
 import { UploadOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const CreateList = () => {
   const [previewImage, setPreviewImage] = useState("");
   const navigate = useNavigate();
+  const [topic, setTopic] = useState({
+    id: null,
+    name: "",
+    description: "",
+    photo: null,
+    objectAccessId: null,
+    objectAccessAccountsId: null,
+    objectEditId: null,
+    objectEditAccountsId: null,
+  });
+  const [objectAccessDatas, setObjectAccessDatas] = useState([]);
+  const [objectEditDatas, setObjectEditDatas] = useState([]);
+
+  function updateAttributeTopic(name, value) {
+    setTopic((prevTopic) => ({
+      ...prevTopic,
+      [name]: value,
+    }));
+  }
 
   function upload(event) {
     setPreviewImage(URL.createObjectURL(event.target.files[0]));
   }
 
-  useEffect(() => {}, [previewImage]);
+  function getObjectEditDatas() {
+    axios
+      .get("http://localhost:8080/api/es-study/objectEdit")
+      .then((res) => {
+        setObjectEditDatas(res.data);
+        updateAttributeTopic("objectEditId", res.data[0]?.id);
+      })
+      .catch((err) => {});
+  }
+
+  function getObjectAccessDatas() {
+    axios
+      .get("http://localhost:8080/api/es-study/objectAccess")
+      .then((res) => {
+        setObjectAccessDatas(res.data);
+        updateAttributeTopic("objectAccessId", res.data[0]?.id);
+      })
+      .catch((err) => {});
+  }
+
+  useEffect(() => {
+    getObjectEditDatas();
+    getObjectAccessDatas();
+  }, []);
   return (
     <Row justify={"center"} align={"middle"} className="bg-gg h-100vh_m_66">
       <Col span={12} className="m-32 bg-wh p-32 bs-glittle bc-green">
@@ -49,30 +92,64 @@ const CreateList = () => {
         </div>
         <div className="mtb-8">
           <Title level={5}>Tên danh sách</Title>
-          <Input placeholder="Input for list name" />
+          <Input
+            value={topic.name}
+            onChange={(e) => {
+              updateAttributeTopic("name", e.target.value);
+            }}
+            placeholder="Input for list name"
+          />
         </div>
 
         <div className="mtb-8">
           <Title level={5}>Mô tả</Title>
-          <TextArea rows={4} placeholder="Input for description" allowClear />
+          <TextArea
+            value={topic.description}
+            onChange={(e) => {
+              updateAttributeTopic("description", e.target.value);
+            }}
+            rows={4}
+            placeholder="Input for description"
+            allowClear
+          />
         </div>
         <div className="mtb-8">
           <Title level={5}>Đối tượng chia sẻ</Title>
-          <Radio.Group onChange={() => {}} defaultValue={2}>
+          <Radio.Group
+            value={topic.objectAccessId}
+            onChange={(e) => {
+              updateAttributeTopic("objectAccessId", e.target.value);
+            }}
+          >
             <Space direction="vertical">
-              <Radio value={1}>Riêng tư</Radio>
-              <Radio value={2}>Công khai</Radio>
-              <Radio value={3}>Bạn bè và ngoại trừ</Radio>
+              {objectAccessDatas &&
+                objectAccessDatas.map((item) => {
+                  return (
+                    <Radio key={item.id} value={item.id}>
+                      {item.name}
+                    </Radio>
+                  );
+                })}
             </Space>
           </Radio.Group>
         </div>
         <div className="mtb-8">
           <Title level={5}>Quyền chỉnh sửa</Title>
-          <Radio.Group onChange={() => {}} defaultValue={2}>
+          <Radio.Group
+            value={topic.objectEditId}
+            onChange={(e) => {
+              updateAttributeTopic("objectEditId", e.target.value);
+            }}
+          >
             <Space direction="vertical">
-              <Radio value={3}>Riêng tư</Radio>
-              <Radio value={2}>Chọn đối tượng</Radio>
-              <Radio value={1}>Tất cả</Radio>
+              {objectEditDatas &&
+                objectEditDatas.map((item) => {
+                  return (
+                    <Radio key={item.id} value={item.id}>
+                      {item.name}
+                    </Radio>
+                  );
+                })}
             </Space>
           </Radio.Group>
         </div>
