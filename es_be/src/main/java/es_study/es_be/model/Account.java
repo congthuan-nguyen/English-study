@@ -39,4 +39,7 @@ public class Account extends BaseEntity {
 
     @Column(name = "email")
     private String email;
+
+    @Column(name = "photoId")
+    private Long photoId;
 }

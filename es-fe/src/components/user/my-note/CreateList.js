@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import { UploadOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import ChooseObject from "./ChooseObject";
 
 const CreateList = () => {
   const [previewImage, setPreviewImage] = useState("");
@@ -16,12 +17,13 @@ const CreateList = () => {
     description: "",
     photo: null,
     objectAccessId: null,
-    objectAccessAccountsId: null,
+    objectAccessAccountsId: [],
     objectEditId: null,
-    objectEditAccountsId: null,
+    objectEditAccountsId: [],
   });
   const [objectAccessDatas, setObjectAccessDatas] = useState([]);
   const [objectEditDatas, setObjectEditDatas] = useState([]);
+  const [modalChooseObject, setModalChooseObject] = useState(false);
 
   function updateAttributeTopic(name, value) {
     setTopic((prevTopic) => ({
@@ -59,7 +61,13 @@ const CreateList = () => {
     getObjectAccessDatas();
   }, []);
   return (
-    <Row justify={"center"} align={"middle"} className="bg-gg h-100vh_m_66">
+    <Row justify={"center"} align={"middle"} className="bg-gg">
+      <ChooseObject
+        openChooseObject={modalChooseObject}
+        onCancel={() => {
+          setModalChooseObject(false);
+        }}
+      />
       <Col span={12} className="m-32 bg-wh p-32 bs-glittle bc-green">
         <Title level={4} className="fac">
           <NoteAddOutlined />
@@ -132,6 +140,24 @@ const CreateList = () => {
                 })}
             </Space>
           </Radio.Group>
+          {topic.objectAccessId ===
+          objectAccessDatas.find((item) => item.name === "Chọn đối tượng")
+            ?.id ? (
+            <div className="bc-green p-16 br-4 fjb">
+              {topic.objectAccessAccountsId?.length === 0 ? (
+                <span>Chưa chọn đối tượng</span>
+              ) : (
+                <span>Đã chọn tất cả ... đối tượng</span>
+              )}
+              <Button
+                onClick={() => {
+                  setModalChooseObject(true);
+                }}
+              >
+                Chọn đối tượng
+              </Button>
+            </div>
+          ) : null}
         </div>
         <div className="mtb-8">
           <Title level={5}>Quyền chỉnh sửa</Title>
@@ -152,6 +178,23 @@ const CreateList = () => {
                 })}
             </Space>
           </Radio.Group>
+          {topic.objectEditId ===
+          objectEditDatas.find((item) => item.name === "Chọn đối tượng")?.id ? (
+            <div className="bc-green p-16 br-4 fjb">
+              {topic.objectEditAccountsId?.length === 0 ? (
+                <span>Chưa chọn đối tượng</span>
+              ) : (
+                <span>Đã chọn tất cả ... đối tượng</span>
+              )}
+              <Button
+                onClick={() => {
+                  setModalChooseObject(true);
+                }}
+              >
+                Chọn đối tượng
+              </Button>
+            </div>
+          ) : null}
         </div>
         <div className="mtb-8 fjc">
           <Button

@@ -4,7 +4,7 @@ public class TopicCreateRequest {
     private Long id;
     private String name;
     private String description;
-    private Byte[] photo;
+    private String photo;
     private Long objectAccessId;
     private Long[] objectAccessAccountsId;
     private Long objectEditId;

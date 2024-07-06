@@ -23,5 +23,5 @@ public class Photo extends BaseEntity {
     @Lob
     @JdbcType(VarbinaryJdbcType.class)
     @Column(name = "value")
-    private Byte[] value;
+    private String value;
 }
