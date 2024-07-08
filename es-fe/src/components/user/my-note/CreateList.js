@@ -17,13 +17,16 @@ const CreateList = () => {
     description: "",
     photo: null,
     objectAccessId: null,
-    objectAccessAccountsId: [],
+    objectAccessAccountsId: ["cthun"],
     objectEditId: null,
     objectEditAccountsId: [],
   });
   const [objectAccessDatas, setObjectAccessDatas] = useState([]);
   const [objectEditDatas, setObjectEditDatas] = useState([]);
   const [modalChooseObject, setModalChooseObject] = useState(false);
+  const [argsObject, setArgsObject] = useState([]);
+  const [nameobject, setNameobject] = useState("");
+  const [render, setRender] = useState(0);
 
   function updateAttributeTopic(name, value) {
     setTopic((prevTopic) => ({
@@ -56,10 +59,26 @@ const CreateList = () => {
       .catch((err) => {});
   }
 
+  function openModalChooseObject(name) {
+    setModalChooseObject(true);
+    if (name.toLowerCase().includes("access")) {
+      setArgsObject(topic.objectAccessAccountsId);
+    } else if (name.toLowerCase().includes("edit")) {
+      setArgsObject(topic.objectEditAccountsId);
+    }
+    setNameobject(name);
+  }
+
   useEffect(() => {
     getObjectEditDatas();
     getObjectAccessDatas();
   }, []);
+
+  useEffect(() => {
+    if (nameobject.includes("object")) {
+      openModalChooseObject(nameobject);
+    }
+  }, [render]);
   return (
     <Row justify={"center"} align={"middle"} className="bg-gg">
       <ChooseObject
@@ -67,6 +86,11 @@ const CreateList = () => {
         onCancel={() => {
           setModalChooseObject(false);
         }}
+        argsObject={argsObject}
+        setArgsObject={updateAttributeTopic}
+        nameObject={nameobject}
+        setRender={setRender}
+        render={render}
       />
       <Col span={12} className="m-32 bg-wh p-32 bs-glittle bc-green">
         <Title level={4} className="fac">
@@ -141,17 +165,20 @@ const CreateList = () => {
             </Space>
           </Radio.Group>
           {topic.objectAccessId ===
-          objectAccessDatas.find((item) => item.name === "Chọn đối tượng")
+          objectAccessDatas?.find((item) => item.name === "Chọn đối tượng")
             ?.id ? (
             <div className="bc-green p-16 br-4 fjb">
               {topic.objectAccessAccountsId?.length === 0 ? (
                 <span>Chưa chọn đối tượng</span>
               ) : (
-                <span>Đã chọn tất cả ... đối tượng</span>
+                <span>
+                  Đã chọn tất cả {topic.objectAccessAccountsId?.length} đối
+                  tượng
+                </span>
               )}
               <Button
                 onClick={() => {
-                  setModalChooseObject(true);
+                  openModalChooseObject("objectAccessAccountsId");
                 }}
               >
                 Chọn đối tượng
@@ -179,16 +206,19 @@ const CreateList = () => {
             </Space>
           </Radio.Group>
           {topic.objectEditId ===
-          objectEditDatas.find((item) => item.name === "Chọn đối tượng")?.id ? (
+          objectEditDatas?.find((item) => item.name === "Chọn đối tượng")
+            ?.id ? (
             <div className="bc-green p-16 br-4 fjb">
               {topic.objectEditAccountsId?.length === 0 ? (
                 <span>Chưa chọn đối tượng</span>
               ) : (
-                <span>Đã chọn tất cả ... đối tượng</span>
+                <span>
+                  Đã chọn tất cả {topic.objectEditAccountsId?.length} đối tượng
+                </span>
               )}
               <Button
                 onClick={() => {
-                  setModalChooseObject(true);
+                  openModalChooseObject("objectEditAccountsId");
                 }}
               >
                 Chọn đối tượng

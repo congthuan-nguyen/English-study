@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.Length;
 import org.hibernate.annotations.JdbcType;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.Type;
@@ -20,8 +21,6 @@ public class Photo extends BaseEntity {
     @Column(name = "id")
     private Long id;
 
-    @Lob
-    @JdbcType(VarbinaryJdbcType.class)
-    @Column(name = "value")
+    @Column(name = "value", length = 2000)
     private String value;
 }
