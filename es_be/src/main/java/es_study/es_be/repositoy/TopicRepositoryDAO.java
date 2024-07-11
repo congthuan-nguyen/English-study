@@ -18,7 +18,7 @@ public interface TopicRepositoryDAO extends JpaRepository<Topic, Long> {
             "(SELECT COUNT(I.id) FROM Interaction I " +
             "left join InteractionType IT on IT.id = I.interactionType.id" +
             " WHERE I.topic.id = T.id AND IT.id = 4) AS view " +
-            "FROM Topic T where id = :noteBookId"
+            "FROM Topic T where T.noteBook.id = :noteBookId"
             )
     List<TopicDisplayResponse> getListTopicDisplayResponseByNoteBookId(@Param("noteBookId") Long noteBookId);
 }

@@ -345,7 +345,7 @@ const MyNote = () => {
                                   <Link
                                     className={`${"buttonGreen"}`}
                                     style={{ fontSize: "20px" }}
-                                    to={"create-list/id"}
+                                    to={"create-list/" + tab.id}
                                   >
                                     <PlusCircleOutlined />
                                   </Link>

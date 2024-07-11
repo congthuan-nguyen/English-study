@@ -23,7 +23,7 @@ const UserRouter = () => {
           <Route index element={<Research />} />
           <Route path="my-note">
             <Route index element={<MyNote />} />
-            <Route path="create-list/id" element={<CreateList />} />
+            <Route path="create-list/:noteBookId" element={<CreateList />} />
             <Route
               path="list-store/:noteBookId/:topicId"
               element={<ListData />}

@@ -4,20 +4,22 @@ import TextArea from "antd/es/input/TextArea";
 import Title from "antd/es/typography/Title";
 import React, { useEffect, useState } from "react";
 import { UploadOutlined } from "@ant-design/icons";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import ChooseObject from "./ChooseObject";
 
 const CreateList = () => {
   const [previewImage, setPreviewImage] = useState("");
+  const { noteBookId } = useParams();
   const navigate = useNavigate();
   const [topic, setTopic] = useState({
     id: null,
     name: "",
+    noteBookId: noteBookId,
     description: "",
     photo: null,
     objectAccessId: null,
-    objectAccessAccountsId: ["cthun"],
+    objectAccessAccountsId: [],
     objectEditId: null,
     objectEditAccountsId: [],
   });
@@ -67,6 +69,14 @@ const CreateList = () => {
       setArgsObject(topic.objectEditAccountsId);
     }
     setNameobject(name);
+  }
+
+  function createTopic() {
+    axios
+      .post("http://localhost:8080/api/es-study/topic/createTopic", topic)
+      .then((res) => {})
+      .catch((err) => {});
+    console.log(topic);
   }
 
   useEffect(() => {
@@ -229,7 +239,7 @@ const CreateList = () => {
         <div className="mtb-8 fjc">
           <Button
             onClick={() => {
-              navigate("/my-note/list-store/data/id");
+              createTopic();
             }}
           >
             Hoàn thành
